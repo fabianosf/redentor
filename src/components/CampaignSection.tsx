@@ -87,14 +87,18 @@ export function CampaignSection() {
                 )}
               </div>
             ) : (
-              <video
-                className="w-full h-auto shadow-md"
-                controls
-                loop
-              >
-                <source src={item.src} type="video/mp4" />
-                Seu navegador não suporta o vídeo.
-              </video>
+              <div className={`w-full ${item.portrait ? 'aspect-[9/16]' : 'aspect-video'}`}>
+                <video
+                  className="w-full h-full object-contain shadow-md bg-black"
+                  controls
+                  loop
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src={item.src} type="video/mp4" />
+                  Seu navegador não suporta o vídeo.
+                </video>
+              </div>
             )}
           </div>
         ))}

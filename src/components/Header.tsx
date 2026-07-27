@@ -19,7 +19,7 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0.5 text-sm">
+          <nav className="hidden lg:flex items-center gap-0.5 text-sm">
             {navItems.map((item) => {
               if (item.external) {
                 return (
@@ -74,7 +74,7 @@ export function Header() {
               <strong>Login</strong>
             </a>
             <button
-              className="md:hidden p-1.5 text-gray-300 hover:text-white"
+              className="lg:hidden p-1.5 text-gray-300 hover:text-white"
               onClick={() => setOpen(v => !v)}
               aria-label="Menu"
             >
@@ -86,7 +86,7 @@ export function Header() {
 
       {/* Mobile nav */}
       {open && (
-        <nav className="md:hidden bg-[#1a1e21] border-t border-white/10">
+        <nav className="lg:hidden bg-[#1a1e21] border-t border-white/10">
           {navItems.map((item) => {
             if (item.external) {
               return (

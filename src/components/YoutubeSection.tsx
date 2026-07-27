@@ -39,7 +39,7 @@ export function YoutubeSection() {
                 frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+                sandbox="allow-scripts allow-same-origin allow-presentation allow-popups allow-fullscreen"
               />
             </div>
             <h2 className="mt-4 mb-2 text-sm font-normal uppercase tracking-wide text-gray-700">

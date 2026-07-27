@@ -48,7 +48,7 @@ export function FaleConosco() {
   }
 
   return (
-    <main className="container mx-auto px-4 pt-20 pb-10">
+    <main className="container mx-auto px-4 pt-16 pb-10">
       <div className="flex items-center p-4 my-4 rounded shadow-sm">
         <h1 className="text-3xl font-bold text-gray-800">Fale Conosco</h1>
       </div>

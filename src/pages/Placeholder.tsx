@@ -8,7 +8,7 @@ interface PlaceholderProps {
 
 export function Placeholder({ title, description }: PlaceholderProps) {
   return (
-    <main className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
+    <main className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center px-4 pt-14 pb-10 text-center">
       <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50">
         <Construction className="h-10 w-10 text-redentor-blue" />
       </div>
