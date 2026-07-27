@@ -9,7 +9,7 @@ import { Placeholder } from '@/pages/Placeholder'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || undefined}>
       <div className="flex min-h-screen flex-col">
         <Header />
         <div className="flex-1">
