@@ -1,4 +1,4 @@
-const BASE = 'https://gruporedentor.com.br/img'
+import { FALLBACK_IMAGE, IMG_BASE } from '@/data'
 
 interface FeatureCard {
   imageUrl: string
@@ -9,19 +9,19 @@ interface FeatureCard {
 
 const cards: FeatureCard[] = [
   {
-    imageUrl: `${BASE}/Img06.png`,
+    imageUrl: `${IMG_BASE}/Img06.png`,
     imageAlt: "2 pessoas com poste no meio 'LGPD'",
     title: 'Responsabilidade social',
     text: 'O grupo Redentor, tem adotado todos os protocolos de segurança definidos pelas autoridades, no sentido de coloborar para atenuarmos os efeitos da pandemia.',
   },
   {
-    imageUrl: `${BASE}/Img07.jpg`,
+    imageUrl: `${IMG_BASE}/Img07.jpg`,
     imageAlt: 'Frotas azul',
     title: 'Conforto e segurança',
     text: 'Com uma frota planejada para suprir os mais variados itinerários na cidade.',
   },
   {
-    imageUrl: `${BASE}/Img08.jpeg`,
+    imageUrl: `${IMG_BASE}/Img08.jpeg`,
     imageAlt: '2 pessoas posando na câmera',
     title: 'Responsabilidade Social, é uma prioridade para o Grupo Redentor',
     text: 'Neste mês de abril, realizamos uma doação de material reciclável, para Casa de Betânia (Igreja Do Loreto).',
@@ -39,6 +39,9 @@ export function FeatureCards() {
               alt={card.imageAlt}
               className="w-full h-auto shadow-md"
               loading="lazy"
+              onError={(event) => {
+                event.currentTarget.src = FALLBACK_IMAGE
+              }}
             />
             <h2 className="mt-4 mb-2 text-sm font-normal uppercase tracking-wide text-gray-700">
               {card.title}

@@ -17,6 +17,27 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: { headers: securityHeaders },
-  preview: { headers: securityHeaders },
+  server: {
+    headers: securityHeaders,
+    allowedHosts: true,
+    proxy: {
+      '/media': {
+        target: 'https://www.gruporedentor.com.br',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/media/, ''),
+      },
+    },
+  },
+  preview: {
+    headers: securityHeaders,
+    proxy: {
+      '/media': {
+        target: 'https://www.gruporedentor.com.br',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/media/, ''),
+      },
+    },
+  },
 })

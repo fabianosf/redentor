@@ -1,0 +1,13 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1200" y1="0" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="600" cy="280" r="120" fill="#F8FAFC" fill-opacity="0.12"/>
+  <path d="M430 360H770C793.196 360 812 378.804 812 402V497C812 520.196 793.196 539 770 539H430C406.804 539 388 520.196 388 497V402C388 378.804 406.804 360 430 360Z" fill="#F8FAFC" fill-opacity="0.12"/>
+  <text x="600" y="390" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="700">Grupo Redentor</text>
+  <text x="600" y="468" text-anchor="middle" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="32">Imagem indisponível</text>
+</svg>

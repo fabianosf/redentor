@@ -1,4 +1,4 @@
-const BASE = 'https://gruporedentor.com.br'
+import { FALLBACK_IMAGE, MEDIA_BASE } from '@/data'
 
 interface CampaignItem {
   type: 'image' | 'video'
@@ -12,47 +12,47 @@ interface CampaignItem {
 const items: CampaignItem[] = [
   {
     type: 'image',
-    src: `${BASE}/img/oferta_vagas.jpeg`,
+    src: `${MEDIA_BASE}/img/oferta_vagas.jpeg`,
     alt: 'oferta de vagas',
     title: 'Trabalhe conosco',
     text: 'Inscrições de segunda a sexta-feira de 08 às 16 horas.\nEstrada do Gabinal nº 1395 – Freguesia / Jacarepaguá\nRua Anália Franco nº 150 – Vila Valqueire',
   },
   {
     type: 'image',
-    src: `${BASE}/img/Aniversario_Grupo_Redentor.jpeg`,
+    src: `${MEDIA_BASE}/img/Aniversario_Grupo_Redentor.jpeg`,
     alt: 'Aniversário Grupo Redentor',
   },
   {
     type: 'image',
-    src: `${BASE}/img/Hepatites_Virais.jpeg`,
+    src: `${MEDIA_BASE}/img/Hepatites_Virais.jpeg`,
     alt: 'Hepatites Virais',
   },
   {
     type: 'video',
-    src: `${BASE}/video/Pacto_Ninguem_Se_Cala.mp4`,
+    src: `${MEDIA_BASE}/video/Pacto_Ninguem_Se_Cala.mp4`,
     title: 'Pacto Ninguém se Cala',
     portrait: true,
   },
   {
     type: 'video',
-    src: `${BASE}/video/Violencia_Contra_Mulher.mp4`,
+    src: `${MEDIA_BASE}/video/Violencia_Contra_Mulher.mp4`,
     title: 'Violência Contra Mulher',
     portrait: true,
   },
   {
     type: 'image',
-    src: `${BASE}/img/Jae.png`,
+    src: `${MEDIA_BASE}/img/Jae.png`,
     alt: 'Jaé',
   },
   {
     type: 'video',
-    src: `${BASE}/video/75_anos_Grupo_Redentor.mp4`,
+    src: `${MEDIA_BASE}/video/75_anos_Grupo_Redentor.mp4`,
     title: 'Aniversário Redentor',
     portrait: true,
   },
   {
     type: 'image',
-    src: `${BASE}/img/Pontos_cegos.jpg`,
+    src: `${MEDIA_BASE}/img/Pontos_cegos.jpg`,
     alt: 'Pontos cegos',
   },
 ]
@@ -76,6 +76,9 @@ export function CampaignSection() {
                   title={item.title}
                   className="w-full h-auto shadow-md"
                   loading="lazy"
+                  onError={(event) => {
+                    event.currentTarget.src = FALLBACK_IMAGE
+                  }}
                 />
                 {item.text && (
                   <>

@@ -1,0 +1,6 @@
+<svg width="480" height="140" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="480" height="140" rx="12" fill="#212529"/>
+  <circle cx="72" cy="70" r="32" fill="#F8FAFC" fill-opacity="0.16"/>
+  <path d="M53 52H90C99.9411 52 108 60.0589 108 70C108 79.9411 99.9411 88 90 88H53C43.0589 88 35 79.9411 35 70C35 60.0589 43.0589 52 53 52Z" fill="#F8FAFC" fill-opacity="0.12"/>
+  <text x="150" y="82" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Grupo Redentor</text>
+</svg>

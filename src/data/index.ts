@@ -1,6 +1,10 @@
 import type { NavItem, Company, HeroSlide, FooterSection, GalleryItem } from '@/types'
 
-const BASE = 'https://gruporedentor.com.br/img'
+export const MEDIA_BASE = '/media'
+export const IMG_BASE = `${MEDIA_BASE}/img`
+
+export const FALLBACK_IMAGE = '/assets/redentor-placeholder.svg'
+export const LOGO_IMAGE = `${IMG_BASE}/logo200.png`
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -19,7 +23,7 @@ export const companies: Company[] = [
     description: '',
     color: 'bg-blue-700',
     logoInitial: 'R',
-    logoImage: `${BASE}/logo%20redentor%20novo%20-%20Copia.png`,
+    logoImage: `${IMG_BASE}/logo%20redentor%20novo%20-%20Copia.png`,
     href: '/historia',
   },
   {
@@ -28,7 +32,7 @@ export const companies: Company[] = [
     description: '',
     color: 'bg-green-700',
     logoInitial: 'F',
-    logoImage: `${BASE}/logo%20novo%20futuro.png`,
+    logoImage: `${IMG_BASE}/logo%20novo%20futuro.png`,
     href: '/historia',
   },
   {
@@ -37,7 +41,7 @@ export const companies: Company[] = [
     description: '',
     color: 'bg-orange-600',
     logoInitial: 'B',
-    logoImage: `${BASE}/logo%20barra%20novo%20-%20Copia.png`,
+    logoImage: `${IMG_BASE}/logo%20barra%20novo%20-%20Copia.png`,
     href: '/historia',
   },
 ]
@@ -47,35 +51,35 @@ export const heroSlides: HeroSlide[] = [
     id: 1,
     title: '',
     subtitle: '',
-    imageUrl: `${BASE}/Foto_1.jpg`,
+    imageUrl: `${IMG_BASE}/Foto_1.jpg`,
     imageAlt: 'Ônibus da Viação Redentor',
   },
   {
     id: 2,
     title: '',
     subtitle: '',
-    imageUrl: `${BASE}/Via%C3%A7%C3%A3o_Redentor_05.jpg`,
+    imageUrl: `${IMG_BASE}/Via%C3%A7%C3%A3o_Redentor_05.jpg`,
     imageAlt: 'Viação Redentor',
   },
   {
     id: 3,
     title: '',
     subtitle: '',
-    imageUrl: `${BASE}/Via%C3%A7%C3%A3o_Redentor_07.jpg`,
+    imageUrl: `${IMG_BASE}/Via%C3%A7%C3%A3o_Redentor_07.jpg`,
     imageAlt: 'Viação Redentor',
   },
   {
     id: 4,
     title: '',
     subtitle: '',
-    imageUrl: `${BASE}/Foto_antiga_redentor.jpg`,
+    imageUrl: `${IMG_BASE}/Foto_antiga_redentor.jpg`,
     imageAlt: 'Foto antiga da Viação Redentor',
   },
   {
     id: 5,
     title: '',
     subtitle: '',
-    imageUrl: `${BASE}/An%C3%BAncio%20-%2024.06.22.png`,
+    imageUrl: `${IMG_BASE}/An%C3%BAncio%20-%2024.06.22.png`,
     imageAlt: 'Anúncio de Vagas',
   },
 ]

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { companies } from '@/data'
+import { FALLBACK_IMAGE, companies } from '@/data'
 
 export function Companies() {
   return (
@@ -13,6 +13,9 @@ export function Companies() {
                 alt={company.name}
                 className="mx-auto w-3/5 h-auto"
                 loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.src = FALLBACK_IMAGE
+                }}
               />
             </Link>
             <h4 className="mt-3 text-base font-normal text-gray-700">

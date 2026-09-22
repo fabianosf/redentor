@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { heroSlides } from '@/data'
+import { FALLBACK_IMAGE, heroSlides } from '@/data'
 
 export function Hero() {
   const [current, setCurrent] = useState(0)
@@ -28,6 +28,9 @@ export function Hero() {
                 alt={slide.imageAlt}
                 className="w-full h-auto block"
                 loading={i === 0 ? 'eager' : 'lazy'}
+                onError={(event) => {
+                  event.currentTarget.src = FALLBACK_IMAGE
+                }}
               />
             </div>
           ))}

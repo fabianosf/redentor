@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { navItems } from '@/data'
-
-const LOGO_URL = 'https://gruporedentor.com.br/img/logo200.png'
+import { FALLBACK_IMAGE, LOGO_IMAGE, navItems } from '@/data'
 
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -15,7 +13,14 @@ export function Header() {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="shrink-0">
-            <img src={LOGO_URL} alt="Grupo Redentor" className="h-9 w-auto" />
+            <img
+              src={LOGO_IMAGE}
+              alt="Grupo Redentor"
+              className="h-9 w-auto"
+              onError={(event) => {
+                event.currentTarget.src = FALLBACK_IMAGE
+              }}
+            />
           </Link>
 
           {/* Desktop nav */}
