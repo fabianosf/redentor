@@ -17,7 +17,7 @@ export const en: TranslationDict = {
   },
   hero: {
     label: 'SINCE 1950',
-    title: 'More than 70 years moving Rio',
+    title: 'Since 1950 moving Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
     ctaJobs: 'See jobs',
     ctaLines: 'View routes',

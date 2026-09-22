@@ -15,7 +15,7 @@ export const pt = {
   },
   hero: {
     label: 'DESDE 1950',
-    title: 'Mais de 70 anos levando o Rio',
+    title: 'Desde 1950 levando o Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
     ctaJobs: 'Ver vagas',
     ctaLines: 'Consultar linhas',
