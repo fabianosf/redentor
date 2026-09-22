@@ -1,24 +1,29 @@
 import { Link } from 'react-router-dom'
 import { Mail, Phone, ShieldCheck } from 'lucide-react'
 import { ETHICS_CHANNEL_URL, contactInfo } from '@/data'
+import { useLanguage } from '@/i18n'
 
 export function ContactBand() {
+  const { t } = useLanguage()
+
   return (
     <section className="section-pad">
       <div className="section-shell">
         <div className="overflow-hidden rounded-2xl bg-navy px-5 py-8 text-white sm:px-8 sm:py-10 lg:px-10">
           <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Fale conosco</p>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">
+                {t('contactBand.eyebrow')}
+              </p>
               <h2 className="mt-2 text-2xl font-extrabold sm:text-3xl">
-                Estamos prontos para atender você
+                {t('contactBand.title')}
               </h2>
               <p className="mt-3 max-w-xl text-sm text-white/75 sm:text-base">
-                Dúvidas, sugestões ou denúncias: canais oficiais do Grupo Redentor.
+                {t('contactBand.subtitle')}
               </p>
               <div className="mt-6 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
                 <Link to="/fale-conosco" className="btn-gold w-full sm:w-auto">
-                  Enviar mensagem
+                  {t('contactBand.sendMessage')}
                 </Link>
                 <a
                   href={ETHICS_CHANNEL_URL}
@@ -26,7 +31,7 @@ export function ContactBand() {
                   rel="noopener noreferrer"
                   className="btn-outline-white w-full sm:w-auto"
                 >
-                  Canal de Ética
+                  {t('contactBand.ethicsChannel')}
                 </a>
               </div>
             </div>
@@ -53,7 +58,7 @@ export function ContactBand() {
               </a>
               <div className="flex items-start gap-3 text-sm text-white/80">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
-                <span>Canal seguro de denúncias disponível 24h.</span>
+                <span>{t('contactBand.ethicsNote')}</span>
               </div>
             </div>
           </div>

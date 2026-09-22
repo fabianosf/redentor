@@ -6,6 +6,7 @@ import {
   contactAddresses,
   contactInfo,
 } from '@/data'
+import { useLanguage } from '@/i18n'
 
 interface ContactForm {
   nome: string
@@ -20,6 +21,7 @@ const ALLOWED_KEYS = new Set(Object.keys(initial))
 export function FaleConosco() {
   const [form, setForm] = useState<ContactForm>(initial)
   const [sent, setSent] = useState(false)
+  const { t } = useLanguage()
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -37,9 +39,9 @@ export function FaleConosco() {
   return (
     <main>
       <PageHero
-        title="Fale Conosco"
-        breadcrumb="Contato"
-        description="Canais oficiais de atendimento do Grupo Redentor."
+        title={t('contact.title')}
+        breadcrumb={t('contact.breadcrumb')}
+        description={t('contact.description')}
       />
 
       <section className="section-pad">
@@ -49,7 +51,7 @@ export function FaleConosco() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/5">
                 <Phone className="h-5 w-5 text-navy" aria-hidden="true" />
               </div>
-              <h2 className="mt-4 text-lg font-bold text-navy">Telefones</h2>
+              <h2 className="mt-4 text-lg font-bold text-navy">{t('contact.phones')}</h2>
               <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                 {contactInfo.phones.map((phone) => (
                   <li key={phone.tel}>
@@ -66,11 +68,11 @@ export function FaleConosco() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/5">
                 <Mail className="h-5 w-5 text-navy" aria-hidden="true" />
               </div>
-              <h2 className="mt-4 text-lg font-bold text-navy">E-mails</h2>
+              <h2 className="mt-4 text-lg font-bold text-navy">{t('contact.emails')}</h2>
               <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                 {contactInfo.emails.map((email) => (
                   <li key={email.value}>
-                    {email.label}:{' '}
+                    {t(email.labelKey)}:{' '}
                     <a
                       href={`mailto:${email.value}`}
                       className="font-medium text-navy hover:underline"
@@ -86,7 +88,7 @@ export function FaleConosco() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/5">
                 <MapPin className="h-5 w-5 text-navy" aria-hidden="true" />
               </div>
-              <h2 className="mt-4 text-lg font-bold text-navy">Garagens</h2>
+              <h2 className="mt-4 text-lg font-bold text-navy">{t('contact.garages')}</h2>
               <ul className="mt-3 space-y-3 text-sm text-ink-muted">
                 {contactAddresses.map((address) => (
                   <li key={address.empresa}>
@@ -101,9 +103,9 @@ export function FaleConosco() {
 
           <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
             <article className="card-surface p-6 sm:p-8">
-              <h2 className="text-xl font-bold text-navy">Canal de Ética</h2>
+              <h2 className="text-xl font-bold text-navy">{t('contact.ethicsTitle')}</h2>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                Para denúncias, utilize o canal seguro e confidencial do Grupo Redentor.
+                {t('contact.ethicsDesc')}
               </p>
               <a
                 href={ETHICS_CHANNEL_URL}
@@ -111,28 +113,24 @@ export function FaleConosco() {
                 rel="noopener noreferrer"
                 className="btn-gold mt-6 inline-flex gap-2"
               >
-                Acessar Canal de Ética
+                {t('contact.ethicsCta')}
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             </article>
 
             <article className="card-surface p-6 sm:p-8">
-              <h2 className="text-xl font-bold text-navy">Envie uma mensagem</h2>
-              <p className="mt-2 text-sm text-ink-muted">
-                Sugestões, reclamações ou elogios. Responderemos pelo e-mail informado.
-              </p>
+              <h2 className="text-xl font-bold text-navy">{t('contact.formTitle')}</h2>
+              <p className="mt-2 text-sm text-ink-muted">{t('contact.formHint')}</p>
 
               {sent ? (
                 <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-                  <p className="font-semibold text-emerald-800">Mensagem enviada com sucesso!</p>
-                  <p className="mt-1 text-sm text-emerald-700">
-                    Responderemos em breve pelo e-mail informado.
-                  </p>
+                  <p className="font-semibold text-emerald-800">{t('contact.successTitle')}</p>
+                  <p className="mt-1 text-sm text-emerald-700">{t('contact.successDesc')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1.5 block text-sm font-medium text-ink">Nome *</label>
+                    <label className="mb-1.5 block text-sm font-medium text-ink">{t('contact.name')}</label>
                     <input
                       name="nome"
                       value={form.nome}
@@ -143,7 +141,7 @@ export function FaleConosco() {
                     />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-medium text-ink">E-mail *</label>
+                    <label className="mb-1.5 block text-sm font-medium text-ink">{t('contact.email')}</label>
                     <input
                       type="email"
                       name="email"
@@ -155,7 +153,7 @@ export function FaleConosco() {
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="mb-1.5 block text-sm font-medium text-ink">Assunto *</label>
+                    <label className="mb-1.5 block text-sm font-medium text-ink">{t('contact.subject')}</label>
                     <input
                       name="assunto"
                       value={form.assunto}
@@ -166,7 +164,7 @@ export function FaleConosco() {
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="mb-1.5 block text-sm font-medium text-ink">Mensagem *</label>
+                    <label className="mb-1.5 block text-sm font-medium text-ink">{t('contact.message')}</label>
                     <textarea
                       name="mensagem"
                       value={form.mensagem}
@@ -178,7 +176,7 @@ export function FaleConosco() {
                   </div>
                   <div className="sm:col-span-2">
                     <button type="submit" className="btn-gold w-full sm:w-auto">
-                      Enviar mensagem
+                      {t('contact.submit')}
                     </button>
                   </div>
                 </form>

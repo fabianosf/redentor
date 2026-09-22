@@ -11,6 +11,7 @@ import type {
   VideoItem,
   ContactAddress,
 } from '@/types'
+import type { TranslationKey } from '@/i18n'
 
 function asset(path: string) {
   const base = import.meta.env.BASE_URL || '/'
@@ -26,20 +27,21 @@ export const LOGO_IMAGE = `${IMG_BASE}/logo200.png`
 export const LINES_URL = 'https://moovitapp.com/rio_de_janeiro-322/lines/pt-br'
 export const ETHICS_CHANNEL_URL = 'https://contatoseguro.com.br/pt/gruporedentor/'
 
-export const navItems: NavItem[] = [
-  { label: 'Início', href: '/' },
-  { label: 'História', href: '/historia' },
-  { label: 'Empresas', href: '/#empresas' },
-  { label: 'Trabalhe', href: '/trabalhe-aqui' },
-  { label: 'Linhas', href: LINES_URL, external: true },
-  { label: 'Contato', href: '/fale-conosco' },
+export const navItems: (Omit<NavItem, 'label'> & { labelKey: TranslationKey })[] = [
+  { labelKey: 'nav.home', href: '/' },
+  { labelKey: 'nav.history', href: '/historia' },
+  { labelKey: 'nav.companies', href: '/#empresas' },
+  { labelKey: 'nav.work', href: '/trabalhe-aqui' },
+  { labelKey: 'nav.lines', href: LINES_URL, external: true },
+  { labelKey: 'nav.contact', href: '/fale-conosco' },
 ]
 
-export const companies: Company[] = [
+export const companies: (Company & { descriptionKey: TranslationKey })[] = [
   {
     id: 'redentor',
     name: 'Viação Redentor',
-    description: 'Tradição e confiança que conectam o Rio desde 1950.',
+    description: '',
+    descriptionKey: 'companies.redentorDesc',
     color: 'bg-navy',
     logoInitial: 'R',
     logoImage: `${IMG_BASE}/logo-redentor.png`,
@@ -48,7 +50,8 @@ export const companies: Company[] = [
   {
     id: 'futuro',
     name: 'Transportes Futuro',
-    description: 'Compromisso com a modernidade e o futuro da mobilidade.',
+    description: '',
+    descriptionKey: 'companies.futuroDesc',
     color: 'bg-navy',
     logoInitial: 'F',
     logoImage: `${IMG_BASE}/logo-futuro.png`,
@@ -57,7 +60,8 @@ export const companies: Company[] = [
   {
     id: 'barra',
     name: 'Transportes Barra',
-    description: 'Qualidade e eficiência nas linhas da Zona Oeste e Barra da Tijuca.',
+    description: '',
+    descriptionKey: 'companies.barraDesc',
     color: 'bg-navy',
     logoInitial: 'B',
     logoImage: `${IMG_BASE}/logo-barra.png`,
@@ -65,75 +69,70 @@ export const companies: Company[] = [
   },
 ]
 
-export const heroSlides: HeroSlide[] = [
+export const heroSlides: (Omit<HeroSlide, 'title' | 'subtitle' | 'imageAlt'> & {
+  altKey: TranslationKey
+})[] = [
   {
     id: 1,
-    title: 'Mais de 70 anos levando o Rio',
-    subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
     imageUrl: `${IMG_BASE}/hero-onibus.jpg`,
-    imageAlt: 'Ônibus institucional do Grupo Redentor',
+    altKey: 'hero.alt1',
   },
   {
     id: 2,
-    title: 'Mais de 70 anos levando o Rio',
-    subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
     imageUrl: `${IMG_BASE}/viacao-05.jpg`,
-    imageAlt: 'Frota da Viação Redentor',
+    altKey: 'hero.alt2',
   },
   {
     id: 3,
-    title: 'Mais de 70 anos levando o Rio',
-    subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
     imageUrl: `${IMG_BASE}/viacao-07.jpg`,
-    imageAlt: 'Ônibus do Grupo Redentor em operação',
+    altKey: 'hero.alt3',
   },
 ]
 
 export const heroContent = {
-  label: 'DESDE 1950',
-  title: 'Mais de 70 anos levando o Rio',
-  subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
-  primaryCta: { label: 'Ver vagas', href: '/trabalhe-aqui' },
-  secondaryCta: { label: 'Consultar linhas', href: LINES_URL, external: true },
+  primaryCtaHref: '/trabalhe-aqui',
+  secondaryCtaHref: LINES_URL,
 }
 
-export const stats: StatItem[] = [
-  { id: 'years', value: '75', label: 'anos', icon: 'calendar' },
-  { id: 'companies', value: '3', label: 'empresas', icon: 'building' },
-  { id: 'people', value: '3.500', label: 'colaboradores', icon: 'users' },
-  { id: 'fleet', value: 'Euro 6', label: 'frota', icon: 'bus' },
+export const stats: (Omit<StatItem, 'label'> & { labelKey: TranslationKey })[] = [
+  { id: 'years', value: '75', labelKey: 'stats.years', icon: 'calendar' },
+  { id: 'companies', value: '3', labelKey: 'stats.companies', icon: 'building' },
+  { id: 'people', value: '3.500', labelKey: 'stats.employees', icon: 'users' },
+  { id: 'fleet', value: 'Euro 6', labelKey: 'stats.fleet', icon: 'bus' },
 ]
 
-export const pillars: Pillar[] = [
+export const pillars: (Omit<Pillar, 'title' | 'description'> & {
+  titleKey: TranslationKey
+  descriptionKey: TranslationKey
+})[] = [
   {
     id: 'safety',
-    title: 'Segurança',
-    description: 'Prioridade em segurança para passageiros e colaboradores em cada viagem.',
+    titleKey: 'pillars.safetyTitle',
+    descriptionKey: 'pillars.safetyDesc',
     icon: 'shield',
   },
   {
     id: 'training',
-    title: 'Capacitação',
-    description: 'Investimento contínuo no desenvolvimento e formação da nossa equipe.',
+    titleKey: 'pillars.trainingTitle',
+    descriptionKey: 'pillars.trainingDesc',
     icon: 'graduation',
   },
   {
     id: 'social',
-    title: 'Responsabilidade Social',
-    description: 'Compromisso com a comunidade e o desenvolvimento sustentável do Rio.',
+    titleKey: 'pillars.socialTitle',
+    descriptionKey: 'pillars.socialDesc',
     icon: 'heart',
   },
 ]
 
-export const jobOpenings: JobOpening[] = [
-  { id: 'motorista', title: 'Motorista (D e E)' },
-  { id: 'mecanico', title: 'Mecânico Diesel' },
-  { id: 'eletricista', title: 'Eletricista Diesel' },
-  { id: 'refrigeracao', title: 'Mecânico de refrigeração veicular' },
+export const jobOpenings: (JobOpening & { titleKey: TranslationKey })[] = [
+  { id: 'motorista', title: 'Motorista (D e E)', titleKey: 'jobs.motorista' },
+  { id: 'mecanico', title: 'Mecânico Diesel', titleKey: 'jobs.mecanico' },
+  { id: 'eletricista', title: 'Eletricista Diesel', titleKey: 'jobs.eletricista' },
+  { id: 'refrigeracao', title: 'Mecânico de refrigeração veicular', titleKey: 'jobs.refrigeracao' },
 ]
 
 export const jobsInfo = {
-  schedule: 'Inscrições de segunda a sexta-feira, das 08h às 16h.',
   addresses: [
     'Estrada do Gabinal nº 1395 – Freguesia / Jacarepaguá',
     'Rua Anália Franco nº 150 – Vila Valqueire',
@@ -141,108 +140,118 @@ export const jobsInfo = {
   email: 'rh@gruporedentor.com.br',
 }
 
-export const newsItems: NewsItem[] = [
+export const newsItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
+  titleKey: TranslationKey
+  summaryKey: TranslationKey
+  altKey: TranslationKey
+})[] = [
   {
     id: 'vagas',
-    title: 'Trabalhe conosco',
-    summary: 'Estamos com vagas abertas. Confira cargos e endereços de inscrição.',
+    titleKey: 'news.vagasTitle',
+    summaryKey: 'news.vagasSummary',
+    altKey: 'news.vagasAlt',
     imageUrl: `${IMG_BASE}/oferta-vagas.jpeg`,
-    imageAlt: 'Oferta de vagas do Grupo Redentor',
     href: '/trabalhe-aqui',
   },
   {
     id: 'aniversario',
-    title: 'Aniversário do Grupo Redentor',
-    summary: 'Celebramos mais um ano conectando o Rio de Janeiro.',
+    titleKey: 'news.aniversarioTitle',
+    summaryKey: 'news.aniversarioSummary',
+    altKey: 'news.aniversarioAlt',
     imageUrl: `${IMG_BASE}/aniversario.jpeg`,
-    imageAlt: 'Aniversário do Grupo Redentor',
     href: '/fique-por-dentro',
   },
   {
     id: 'campanha',
-    title: 'Campanhas e ações sociais',
-    summary: 'Iniciativas de saúde, cidadania e cuidado com a comunidade.',
+    titleKey: 'news.campanhaTitle',
+    summaryKey: 'news.campanhaSummary',
+    altKey: 'news.campanhaAlt',
     imageUrl: `${IMG_BASE}/hepatites.jpeg`,
-    imageAlt: 'Campanha de conscientização do Grupo Redentor',
     href: '/fique-por-dentro',
   },
 ]
 
-export const newsExtra: NewsItem[] = [
+export const newsExtra: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
+  title?: string
+  titleKey?: TranslationKey
+  summaryKey: TranslationKey
+  altKey: TranslationKey
+})[] = [
   {
     id: 'jae',
     title: 'Jaé',
-    summary: 'Informações e campanhas sobre o cartão Jaé.',
+    summaryKey: 'news.jaeSummary',
+    altKey: 'news.jaeAlt',
     imageUrl: `${IMG_BASE}/jae.png`,
-    imageAlt: 'Campanha Jaé',
     href: '/fique-por-dentro',
   },
   {
     id: 'pontos-cegos',
-    title: 'Pontos cegos',
-    summary: 'Conscientização sobre segurança no trânsito.',
+    titleKey: 'news.pontosTitle',
+    summaryKey: 'news.pontosSummary',
+    altKey: 'news.pontosAlt',
     imageUrl: `${IMG_BASE}/pontos-cegos.jpg`,
-    imageAlt: 'Campanha pontos cegos',
     href: '/fique-por-dentro',
   },
 ]
 
-export const timeline: TimelineEvent[] = [
+export const timeline: (Omit<TimelineEvent, 'title' | 'description' | 'year'> & {
+  year?: string
+  yearKey?: TranslationKey
+  titleKey: TranslationKey
+  descriptionKey: TranslationKey
+})[] = [
   {
     id: '1950',
     year: '1950',
-    title: 'Nascimento da Redentor',
-    description:
-      'Com seis ônibus usados e menos de 20 colaboradores, nasce a Viação Redentor na Estrada Intendente Magalhães, Vila Valqueire.',
+    titleKey: 'history.t1950Title',
+    descriptionKey: 'history.t1950Desc',
   },
   {
     id: '1970',
-    year: '1970s',
-    title: 'Nova sede e inovação',
-    description:
-      'Inauguração da sede na Estrada do Gabinal e pioneirismo com ônibus urbanos com ar-condicionado — os “Fresquinhos”.',
+    yearKey: 'history.t1970Year',
+    titleKey: 'history.t1970Title',
+    descriptionKey: 'history.t1970Desc',
   },
   {
     id: '1990',
-    year: '1991–1997',
-    title: 'Expansão do grupo',
-    description:
-      'Surgem Transportes Barra (1991) e Transportes Futuro (1997), formando o Grupo Redentor com empresas irmãs.',
+    yearKey: 'history.t1990Year',
+    titleKey: 'history.t1990Title',
+    descriptionKey: 'history.t1990Desc',
   },
   {
     id: '2010',
     year: '2010',
-    title: 'Consórcio Transcarioca',
-    description:
-      'O Grupo integra o novo sistema de consórcios da cidade e passa a atuar também no eixo do BRT.',
+    titleKey: 'history.t2010Title',
+    descriptionKey: 'history.t2010Desc',
   },
   {
     id: 'hoje',
-    year: 'Hoje',
-    title: '75 anos e frota Euro 6',
-    description:
-      'Mais de 3.500 colaboradores e frota moderna Euro 6, mantendo compromisso com segurança, ética e mobilidade no Rio.',
+    yearKey: 'history.tTodayYear',
+    titleKey: 'history.tTodayTitle',
+    descriptionKey: 'history.tTodayDesc',
   },
 ]
 
-export const videos: VideoItem[] = [
+export const videos: {
+  youtubeId: string
+  titleKey: TranslationKey
+  descriptionKey: TranslationKey
+}[] = [
   {
     youtubeId: 'AkIBJTUVrCU',
-    title: 'Memórias afetivas',
-    description:
-      'Funcionário desde 1983, Noé está perto de completar 40 anos no Grupo Redentor.',
+    titleKey: 'inside.video1Title',
+    descriptionKey: 'inside.video1Desc',
   },
   {
     youtubeId: 'ekAoVTmyhps',
-    title: 'Trabalho de preparo',
-    description:
-      'Como funciona o treinamento de motoristas antes de sair para as ruas.',
+    titleKey: 'inside.video2Title',
+    descriptionKey: 'inside.video2Desc',
   },
   {
     youtubeId: 'bId5n_cj2O4',
-    title: 'Capacitação de motoristas',
-    description:
-      'Treinamento teórico e prático, incluindo cuidados com ciclistas e cadeirantes.',
+    titleKey: 'inside.video3Title',
+    descriptionKey: 'inside.video3Desc',
   },
 ]
 
@@ -270,59 +279,70 @@ export const contactInfo = {
     { label: 'Transportes Barra', value: '(21) 3515-4666', tel: '+552135154666' },
   ],
   emails: [
-    { label: 'RH Redentor', value: 'rh@gruporedentor.com.br' },
-    { label: 'RH Barra', value: 'rh@transportesbarra.com.br' },
-    { label: 'Acidentes', value: 'acidentes@gruporedentor.com.br' },
+    { labelKey: 'contact.emailRhRedentor' as TranslationKey, value: 'rh@gruporedentor.com.br' },
+    { labelKey: 'contact.emailRhBarra' as TranslationKey, value: 'rh@transportesbarra.com.br' },
+    { labelKey: 'contact.emailAccidents' as TranslationKey, value: 'acidentes@gruporedentor.com.br' },
   ],
 }
 
-export const footerSections: FooterSection[] = [
+export const footerSections: {
+  titleKey: TranslationKey
+  links: {
+    labelKey?: TranslationKey
+    label?: string
+    href: string
+    external?: boolean
+  }[]
+}[] = [
   {
-    title: 'Empresas',
+    titleKey: 'footer.companies',
     links: [
       { label: 'Viação Redentor', href: '/viacao-redentor' },
       { label: 'Transportes Futuro', href: '/transportes-futuro' },
       { label: 'Transportes Barra', href: '/transportes-barra' },
       {
-        label: 'Código de Ética',
+        labelKey: 'footer.codeOfEthics',
         href: 'https://gruporedentor.com.br/doc/CodigoDeEtica.pdf',
         external: true,
       },
       {
-        label: 'Igualdade Salarial',
+        labelKey: 'footer.equalPay',
         href: 'https://gruporedentor.com.br/doc/igualdade_salarial.pdf',
         external: true,
       },
     ],
   },
   {
-    title: 'Links úteis',
+    titleKey: 'footer.usefulLinks',
     links: [
       { label: 'Rio Ônibus', href: 'http://www.rioonibus.com/', external: true },
       { label: 'Moovit', href: 'https://moovitapp.com/rio_de_janeiro-322/poi/pt-br', external: true },
       { label: 'Semove', href: 'https://semove.org.br/', external: true },
       {
-        label: 'Política de Privacidade',
+        labelKey: 'footer.privacy',
         href: 'https://gruporedentor.com.br/doc/Politica_De_Privacidade.pdf',
         external: true,
       },
     ],
   },
   {
-    title: 'Contatos',
+    titleKey: 'footer.contacts',
     links: [
-      { label: 'Fale Conosco', href: '/fale-conosco' },
-      { label: 'Trabalhe Conosco', href: '/trabalhe-aqui' },
-      { label: 'Achados e Perdidos', href: '/achados-e-perdidos' },
-      { label: 'Denúncias', href: ETHICS_CHANNEL_URL, external: true },
+      { labelKey: 'footer.contactUs', href: '/fale-conosco' },
+      { labelKey: 'footer.workWithUs', href: '/trabalhe-aqui' },
+      { labelKey: 'footer.lostFound', href: '/achados-e-perdidos' },
+      { labelKey: 'footer.reports', href: ETHICS_CHANNEL_URL, external: true },
     ],
   },
 ]
 
-export const jobRoles = [
-  'Motorista (D e E)',
-  'Mecânico Diesel',
-  'Eletricista Diesel',
-  'Mecânico de refrigeração veicular',
-  'Outro',
+export const jobRoleKeys: TranslationKey[] = [
+  'jobs.motorista',
+  'jobs.mecanico',
+  'jobs.eletricista',
+  'jobs.refrigeracao',
+  'jobs.other',
 ]
+
+// Keep type imports used
+export type { FooterSection, VideoItem }

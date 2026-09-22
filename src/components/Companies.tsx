@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { companies } from '@/data'
+import { useLanguage } from '@/i18n'
 import type { Company } from '@/types'
+import type { TranslationKey } from '@/i18n'
 
-function CompanyCard({ company }: { company: Company }) {
+type CompanyItem = Company & { descriptionKey: TranslationKey }
+
+function CompanyCard({ company }: { company: CompanyItem }) {
   const [failed, setFailed] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <Link
@@ -27,23 +32,25 @@ function CompanyCard({ company }: { company: Company }) {
         )}
       </div>
       <h3 className="mt-4 text-base font-bold text-navy sm:text-lg">{company.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{company.description}</p>
+      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t(company.descriptionKey)}</p>
     </Link>
   )
 }
 
 export function Companies() {
+  const { t } = useLanguage()
+
   return (
     <section id="empresas" className="section-pad scroll-mt-24">
       <div className="section-shell">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-dark">Grupo Redentor</p>
-          <h2 className="mt-2 text-2xl font-extrabold text-navy sm:text-3xl lg:text-4xl">
-            Nossas Empresas
-          </h2>
-          <p className="mt-3 text-sm text-ink-muted sm:text-base">
-            Três empresas, uma mesma missão: mobilidade urbana com qualidade no Rio de Janeiro.
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-dark">
+            {t('companies.eyebrow')}
           </p>
+          <h2 className="mt-2 text-2xl font-extrabold text-navy sm:text-3xl lg:text-4xl">
+            {t('companies.title')}
+          </h2>
+          <p className="mt-3 text-sm text-ink-muted sm:text-base">{t('companies.subtitle')}</p>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:gap-6 md:grid-cols-3">

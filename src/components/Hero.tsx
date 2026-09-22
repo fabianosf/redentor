@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Building2, Bus, CalendarDays, Users } from 'lucide-react'
 import { FALLBACK_IMAGE, heroContent, heroSlides, stats } from '@/data'
+import { useLanguage } from '@/i18n'
 import type { StatItem } from '@/types'
 
 const iconMap = {
@@ -17,6 +18,8 @@ function StatIcon({ icon }: { icon: StatItem['icon'] }) {
 }
 
 function StatsBar() {
+  const { t } = useLanguage()
+
   return (
     <div className="rounded-xl bg-navy px-3 py-3 shadow-lg sm:px-6 sm:py-4">
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
@@ -28,7 +31,7 @@ function StatsBar() {
             <div className="min-w-0">
               <p className="truncate text-base font-bold text-white sm:text-xl">{stat.value}</p>
               <p className="truncate text-[10px] uppercase tracking-wide text-white/70 sm:text-xs">
-                {stat.label}
+                {t(stat.labelKey)}
               </p>
             </div>
           </div>
@@ -41,12 +44,13 @@ function StatsBar() {
 export function Hero() {
   const [current, setCurrent] = useState(0)
   const total = heroSlides.length
+  const { t } = useLanguage()
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % total), [total])
 
   useEffect(() => {
-    const t = setInterval(next, 6000)
-    return () => clearInterval(t)
+    const timer = setInterval(next, 6000)
+    return () => clearInterval(timer)
   }, [next])
 
   return (
@@ -63,7 +67,7 @@ export function Hero() {
             >
               <img
                 src={slide.imageUrl}
-                alt={slide.imageAlt}
+                alt={t(slide.altKey)}
                 className="h-full w-full object-cover object-center"
                 loading={i === 0 ? 'eager' : 'lazy'}
                 onError={(event) => {
@@ -78,36 +82,34 @@ export function Hero() {
         <div className="section-shell relative flex flex-col justify-center pt-14 pb-8 sm:min-h-[70vh] sm:pb-10 sm:pt-16 lg:min-h-[560px] lg:pb-36">
           <div className="max-w-xl">
             <span className="mb-3 inline-block rounded-full bg-gold px-3 py-1 text-[10px] font-bold tracking-[0.16em] text-navy-dark sm:mb-4 sm:text-xs">
-              {heroContent.label}
+              {t('hero.label')}
             </span>
             <h1 className="text-[1.85rem] font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-[3.25rem]">
-              {heroContent.title}
+              {t('hero.title')}
             </h1>
             <p className="mt-3 max-w-md text-sm text-white/85 sm:mt-4 sm:text-lg">
-              {heroContent.subtitle}
+              {t('hero.subtitle')}
             </p>
             <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap">
-              <Link to={heroContent.primaryCta.href} className="btn-gold w-full sm:w-auto">
-                {heroContent.primaryCta.label}
+              <Link to={heroContent.primaryCtaHref} className="btn-gold w-full sm:w-auto">
+                {t('hero.ctaJobs')}
               </Link>
               <a
-                href={heroContent.secondaryCta.href}
+                href={heroContent.secondaryCtaHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline-white w-full sm:w-auto"
               >
-                {heroContent.secondaryCta.label}
+                {t('hero.ctaLines')}
               </a>
             </div>
           </div>
 
-          {/* Mobile/tablet: stats in flow to avoid overlap */}
           <div className="mt-10 lg:hidden">
             <StatsBar />
           </div>
         </div>
 
-        {/* Desktop: stats overlay on hero base */}
         <div className="section-shell pointer-events-none absolute inset-x-0 bottom-6 hidden lg:block">
           <div className="pointer-events-auto">
             <StatsBar />

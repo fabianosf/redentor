@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Phone } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
+import { useLanguage } from '@/i18n'
 
 interface LostForm {
   linha: string
@@ -15,6 +16,7 @@ const ALLOWED_KEYS = new Set(Object.keys(initial))
 export function AchadosPerdidos() {
   const [form, setForm] = useState<LostForm>(initial)
   const [sent, setSent] = useState(false)
+  const { t } = useLanguage()
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -32,16 +34,16 @@ export function AchadosPerdidos() {
   return (
     <main>
       <PageHero
-        title="Achados e Perdidos"
-        description="Perdeu algo em um dos nossos ônibus? Registre aqui ou ligue para nós."
+        title={t('lost.title')}
+        description={t('lost.description')}
       />
 
       <section className="section-pad">
         <div className="section-shell grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
           <article className="card-surface h-fit p-5 sm:p-6 lg:p-8">
-            <h2 className="text-lg font-bold text-navy">Atendimento</h2>
+            <h2 className="text-lg font-bold text-navy">{t('lost.service')}</h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-              Além do formulário, você também pode ligar para a central de Achados e Perdidos.
+              {t('lost.serviceDesc')}
             </p>
             <a
               href="tel:+552124450910"
@@ -53,23 +55,19 @@ export function AchadosPerdidos() {
           </article>
 
           <article className="card-surface p-5 sm:p-6 lg:p-8">
-            <h2 className="text-xl font-bold text-navy">Registrar ocorrência</h2>
-            <p className="mt-2 text-sm text-ink-muted">
-              Informe linha ou número do ônibus, data e descrição do objeto.
-            </p>
+            <h2 className="text-xl font-bold text-navy">{t('lost.formTitle')}</h2>
+            <p className="mt-2 text-sm text-ink-muted">{t('lost.formHint')}</p>
 
             {sent ? (
               <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-                <p className="font-semibold text-emerald-800">Registro enviado com sucesso!</p>
-                <p className="mt-1 text-sm text-emerald-700">
-                  Nossa equipe entrará em contato pelo telefone informado.
-                </p>
+                <p className="font-semibold text-emerald-800">{t('lost.successTitle')}</p>
+                <p className="mt-1 text-sm text-emerald-700">{t('lost.successDesc')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-ink">
-                    Linha / ônibus *
+                    {t('lost.line')}
                   </label>
                   <input
                     name="linha"
@@ -81,7 +79,7 @@ export function AchadosPerdidos() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Data *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('lost.date')}</label>
                   <input
                     type="date"
                     name="data"
@@ -92,7 +90,9 @@ export function AchadosPerdidos() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Descrição *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">
+                    {t('lost.descriptionLabel')}
+                  </label>
                   <textarea
                     name="descricao"
                     value={form.descricao}
@@ -103,7 +103,7 @@ export function AchadosPerdidos() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Telefone *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('lost.phone')}</label>
                   <input
                     name="telefone"
                     value={form.telefone}
@@ -115,7 +115,7 @@ export function AchadosPerdidos() {
                 </div>
                 <div className="sm:col-span-2">
                   <button type="submit" className="btn-gold w-full sm:w-auto">
-                    Enviar registro
+                    {t('lost.submit')}
                   </button>
                 </div>
               </form>

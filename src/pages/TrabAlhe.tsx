@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PageHero } from '@/components/PageHero'
-import { jobOpenings, jobRoles, jobsInfo, contactInfo } from '@/data'
+import { jobOpenings, jobRoleKeys, jobsInfo, contactInfo } from '@/data'
+import { useLanguage } from '@/i18n'
 
 interface FormData {
   nome: string
@@ -25,6 +26,7 @@ const ALLOWED_KEYS = new Set(Object.keys(initialForm))
 export function TrabAlhe() {
   const [form, setForm] = useState<FormData>(initialForm)
   const [sent, setSent] = useState(false)
+  const { t } = useLanguage()
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -42,44 +44,44 @@ export function TrabAlhe() {
   return (
     <main>
       <PageHero
-        title="Trabalhe conosco"
-        breadcrumb="Trabalhe"
-        description="Envie seu currículo e faça parte do Grupo Redentor."
+        title={t('work.title')}
+        breadcrumb={t('work.breadcrumb')}
+        description={t('work.description')}
       />
 
       <section className="section-pad">
         <div className="section-shell grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
           <div className="space-y-4 sm:space-y-6">
             <article className="card-surface p-5 sm:p-6">
-              <h2 className="text-lg font-bold text-navy">Vagas em destaque</h2>
+              <h2 className="text-lg font-bold text-navy">{t('work.featured')}</h2>
               <div className="mt-4 flex flex-wrap gap-2">
                 {jobOpenings.map((job) => (
                   <span
                     key={job.id}
                     className="rounded-full border border-navy/15 bg-offwhite px-3 py-1.5 text-sm font-medium text-navy"
                   >
-                    {job.title}
+                    {t(job.titleKey)}
                   </span>
                 ))}
               </div>
             </article>
 
             <article className="card-surface p-5 sm:p-6">
-              <h2 className="text-lg font-bold text-navy">Inscrições presenciais</h2>
-              <p className="mt-3 text-sm text-ink-muted">{jobsInfo.schedule}</p>
+              <h2 className="text-lg font-bold text-navy">{t('work.inPerson')}</h2>
+              <p className="mt-3 text-sm text-ink-muted">{t('jobs.schedule')}</p>
               <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                 {jobsInfo.addresses.map((address) => (
                   <li key={address}>{address}</li>
                 ))}
               </ul>
               <p className="mt-4 text-sm text-ink-muted">
-                E-mail:{' '}
+                {t('jobs.emailLabel')}{' '}
                 <a href={`mailto:${jobsInfo.email}`} className="font-medium text-navy hover:underline">
                   {jobsInfo.email}
                 </a>
               </p>
               <p className="mt-2 text-sm text-ink-muted">
-                Telefones:{' '}
+                {t('work.phones')}{' '}
                 {contactInfo.phones.map((p, i) => (
                   <span key={p.tel}>
                     {i > 0 && ' · '}
@@ -93,20 +95,18 @@ export function TrabAlhe() {
           </div>
 
           <div className="card-surface p-5 sm:p-6 lg:p-8">
-            <h2 className="text-xl font-bold text-navy">Cadastre seu currículo</h2>
-            <p className="mt-2 text-sm text-ink-muted">
-              Preencha os dados abaixo. Campos com * são obrigatórios.
-            </p>
+            <h2 className="text-xl font-bold text-navy">{t('work.formTitle')}</h2>
+            <p className="mt-2 text-sm text-ink-muted">{t('work.formHint')}</p>
 
             {sent ? (
               <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-                <p className="font-semibold text-emerald-800">Currículo enviado com sucesso!</p>
-                <p className="mt-1 text-sm text-emerald-700">Entraremos em contato em breve.</p>
+                <p className="font-semibold text-emerald-800">{t('work.successTitle')}</p>
+                <p className="mt-1 text-sm text-emerald-700">{t('work.successDesc')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Nome completo *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.fullName')}</label>
                   <input
                     name="nome"
                     value={form.nome}
@@ -117,7 +117,7 @@ export function TrabAlhe() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-ink">E-mail *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.email')}</label>
                   <input
                     type="email"
                     name="email"
@@ -129,7 +129,7 @@ export function TrabAlhe() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Telefone *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.phone')}</label>
                   <input
                     name="telefone"
                     value={form.telefone}
@@ -140,7 +140,7 @@ export function TrabAlhe() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Cargo pretendido *</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.role')}</label>
                   <select
                     name="cargo"
                     value={form.cargo}
@@ -149,28 +149,28 @@ export function TrabAlhe() {
                     className="field-input"
                   >
                     <option value="" disabled>
-                      Selecione
+                      {t('work.select')}
                     </option>
-                    {jobRoles.map((role) => (
-                      <option key={role} value={role}>
-                        {role}
+                    {jobRoleKeys.map((roleKey) => (
+                      <option key={roleKey} value={roleKey}>
+                        {t(roleKey)}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-ink">CNH</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.cnh')}</label>
                   <input
                     name="cnh"
                     value={form.cnh}
                     onChange={handleChange}
-                    placeholder="Ex.: D, E"
+                    placeholder={t('work.cnhPlaceholder')}
                     maxLength={20}
                     className="field-input"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Currículo (PDF)</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.resume')}</label>
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
@@ -178,7 +178,7 @@ export function TrabAlhe() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-ink">Observações</label>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">{t('work.notes')}</label>
                   <textarea
                     name="mensagem"
                     value={form.mensagem}
@@ -189,7 +189,7 @@ export function TrabAlhe() {
                 </div>
                 <div className="sm:col-span-2">
                   <button type="submit" className="btn-gold w-full sm:w-auto">
-                    Enviar currículo
+                    {t('work.submit')}
                   </button>
                 </div>
               </form>

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { ExternalLink } from 'lucide-react'
 import { footerSections } from '@/data'
+import { useLanguage } from '@/i18n'
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const { t } = useLanguage()
 
   return (
     <footer className="bg-navy-dark text-white">
@@ -24,37 +26,40 @@ export function Footer() {
                 <span className="block text-base font-extrabold tracking-wide">REDENTOR</span>
               </div>
             </div>
-            <p className="mt-4 text-sm text-white/60">© 1950 – {year} Grupo Redentor</p>
+            <p className="mt-4 text-sm text-white/60">{t('footer.copyright', { year })}</p>
           </div>
 
           {footerSections.map((section) => (
-            <div key={section.title}>
+            <div key={section.titleKey}>
               <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white sm:mb-4">
-                {section.title}
+                {t(section.titleKey)}
               </h5>
               <ul className="space-y-2.5 text-sm">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-white/65 transition hover:text-gold"
-                      >
-                        {link.label}
-                        <ExternalLink className="h-3 w-3 opacity-60" aria-hidden="true" />
-                      </a>
-                    ) : (
-                      <Link
-                        to={link.href}
-                        className="text-white/65 transition hover:text-gold"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                {section.links.map((link) => {
+                  const label = link.labelKey ? t(link.labelKey) : link.label ?? ''
+                  return (
+                    <li key={`${section.titleKey}-${label}`}>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-white/65 transition hover:text-gold"
+                        >
+                          {label}
+                          <ExternalLink className="h-3 w-3 opacity-60" aria-hidden="true" />
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          className="text-white/65 transition hover:text-gold"
+                        >
+                          {label}
+                        </Link>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}

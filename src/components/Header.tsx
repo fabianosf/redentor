@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { LOGO_IMAGE, navItems } from '@/data'
+import { useLanguage, type Locale } from '@/i18n'
 
 function BrandLogo() {
   const [failed, setFailed] = useState(false)
@@ -39,6 +40,32 @@ function BrandLogo() {
   )
 }
 
+function LanguageSwitch({ className = '' }: { className?: string }) {
+  const { locale, setLocale } = useLanguage()
+
+  function optionClass(code: Locale) {
+    return `relative px-1.5 py-0.5 text-xs font-semibold tracking-wide transition ${
+      locale === code
+        ? 'text-navy after:absolute after:inset-x-1 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-navy'
+        : 'text-ink-muted hover:text-navy'
+    }`
+  }
+
+  return (
+    <div className={`inline-flex items-center gap-1 ${className}`} aria-label="Language">
+      <button type="button" className={optionClass('pt')} onClick={() => setLocale('pt')}>
+        PT
+      </button>
+      <span className="text-xs text-slate-300" aria-hidden="true">
+        |
+      </span>
+      <button type="button" className={optionClass('en')} onClick={() => setLocale('en')}>
+        EN
+      </button>
+    </div>
+  )
+}
+
 function isActive(pathname: string, href: string) {
   if (href === '/') return pathname === '/'
   if (href.startsWith('/#')) return pathname === '/'
@@ -48,6 +75,7 @@ function isActive(pathname: string, href: string) {
 export function Header() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const { t } = useLanguage()
 
   useEffect(() => {
     setOpen(false)
@@ -76,7 +104,7 @@ export function Header() {
             <BrandLogo />
           </Link>
 
-          <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Principal">
+          <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label={t('nav.mainNav')}>
             {navItems.map((item) => {
               const active = isActive(pathname, item.href)
               const className = `relative px-2.5 py-2 text-sm font-medium transition xl:px-3 ${
@@ -96,14 +124,14 @@ export function Header() {
                     rel="noopener noreferrer"
                     className={className}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </a>
                 )
               }
 
               return (
                 <Link key={item.href} to={item.href} className={className}>
-                  {item.label}
+                  {t(item.labelKey)}
                   {underline}
                 </Link>
               )
@@ -112,16 +140,17 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <Link to="/trabalhe-aqui" className="btn-gold hidden whitespace-nowrap md:inline-flex">
-              Trabalhe conosco
+              {t('nav.workWithUs')}
             </Link>
+            <LanguageSwitch className="hidden sm:inline-flex" />
             <a href="/portal/" className="btn-outline-navy hidden whitespace-nowrap lg:inline-flex">
-              Login
+              {t('nav.login')}
             </a>
             <button
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-navy lg:hidden"
               onClick={() => setOpen((v) => !v)}
-              aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+              aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
               aria-expanded={open}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -133,7 +162,7 @@ export function Header() {
       {open && (
         <nav
           className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
-          aria-label="Mobile"
+          aria-label={t('nav.mobileNav')}
         >
           <div className="section-shell space-y-1 py-3 pb-6">
             {navItems.map((item) => {
@@ -152,7 +181,7 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className={className}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </a>
                 )
               }
@@ -164,16 +193,19 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className={className}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               )
             })}
+            <div className="px-3 py-3">
+              <LanguageSwitch />
+            </div>
             <Link
               to="/trabalhe-aqui"
               onClick={() => setOpen(false)}
-              className="btn-gold mt-3 w-full"
+              className="btn-gold mt-1 w-full"
             >
-              Trabalhe conosco
+              {t('nav.workWithUs')}
             </Link>
           </div>
         </nav>
