@@ -12,10 +12,15 @@ import type {
   ContactAddress,
 } from '@/types'
 
-export const MEDIA_BASE = '/media'
-export const IMG_BASE = `${MEDIA_BASE}/img`
+function asset(path: string) {
+  const base = import.meta.env.BASE_URL || '/'
+  return `${base}${path.replace(/^\//, '')}`
+}
 
-export const FALLBACK_IMAGE = '/assets/redentor-placeholder.svg'
+export const MEDIA_BASE = asset('assets')
+export const IMG_BASE = asset('assets/img')
+
+export const FALLBACK_IMAGE = asset('assets/redentor-placeholder.svg')
 export const LOGO_IMAGE = `${IMG_BASE}/logo200.png`
 
 export const LINES_URL = 'https://moovitapp.com/rio_de_janeiro-322/lines/pt-br'
@@ -37,7 +42,7 @@ export const companies: Company[] = [
     description: 'Tradição e confiança que conectam o Rio desde 1950.',
     color: 'bg-navy',
     logoInitial: 'R',
-    logoImage: `${IMG_BASE}/logo%20redentor%20novo%20-%20Copia.png`,
+    logoImage: `${IMG_BASE}/logo-redentor.png`,
     href: '/historia#empresas',
   },
   {
@@ -46,7 +51,7 @@ export const companies: Company[] = [
     description: 'Compromisso com a modernidade e o futuro da mobilidade.',
     color: 'bg-navy',
     logoInitial: 'F',
-    logoImage: `${IMG_BASE}/logo%20novo%20futuro.png`,
+    logoImage: `${IMG_BASE}/logo-futuro.png`,
     href: '/historia#empresas',
   },
   {
@@ -55,7 +60,7 @@ export const companies: Company[] = [
     description: 'Qualidade e eficiência nas linhas da Zona Oeste e Barra da Tijuca.',
     color: 'bg-navy',
     logoInitial: 'B',
-    logoImage: `${IMG_BASE}/logo%20barra%20novo%20-%20Copia.png`,
+    logoImage: `${IMG_BASE}/logo-barra.png`,
     href: '/historia#empresas',
   },
 ]
@@ -65,21 +70,21 @@ export const heroSlides: HeroSlide[] = [
     id: 1,
     title: 'Mais de 70 anos levando o Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
-    imageUrl: `${IMG_BASE}/Foto_1.jpg`,
+    imageUrl: `${IMG_BASE}/foto-1.jpg`,
     imageAlt: 'Ônibus azul e branco do Grupo Redentor no Rio de Janeiro',
   },
   {
     id: 2,
     title: 'Mais de 70 anos levando o Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
-    imageUrl: `${IMG_BASE}/Via%C3%A7%C3%A3o_Redentor_05.jpg`,
+    imageUrl: `${IMG_BASE}/viacao-05.jpg`,
     imageAlt: 'Frota da Viação Redentor',
   },
   {
     id: 3,
     title: 'Mais de 70 anos levando o Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
-    imageUrl: `${IMG_BASE}/Via%C3%A7%C3%A3o_Redentor_07.jpg`,
+    imageUrl: `${IMG_BASE}/viacao-07.jpg`,
     imageAlt: 'Ônibus do Grupo Redentor em operação',
   },
 ]
@@ -141,7 +146,7 @@ export const newsItems: NewsItem[] = [
     id: 'vagas',
     title: 'Trabalhe conosco',
     summary: 'Estamos com vagas abertas. Confira cargos e endereços de inscrição.',
-    imageUrl: `${IMG_BASE}/oferta_vagas.jpeg`,
+    imageUrl: `${IMG_BASE}/oferta-vagas.jpeg`,
     imageAlt: 'Oferta de vagas do Grupo Redentor',
     href: '/trabalhe-aqui',
   },
@@ -149,7 +154,7 @@ export const newsItems: NewsItem[] = [
     id: 'aniversario',
     title: 'Aniversário do Grupo Redentor',
     summary: 'Celebramos mais um ano conectando o Rio de Janeiro.',
-    imageUrl: `${IMG_BASE}/Aniversario_Grupo_Redentor.jpeg`,
+    imageUrl: `${IMG_BASE}/aniversario.jpeg`,
     imageAlt: 'Aniversário do Grupo Redentor',
     href: '/fique-por-dentro',
   },
@@ -157,7 +162,7 @@ export const newsItems: NewsItem[] = [
     id: 'campanha',
     title: 'Campanhas e ações sociais',
     summary: 'Iniciativas de saúde, cidadania e cuidado com a comunidade.',
-    imageUrl: `${IMG_BASE}/Hepatites_Virais.jpeg`,
+    imageUrl: `${IMG_BASE}/hepatites.jpeg`,
     imageAlt: 'Campanha de conscientização do Grupo Redentor',
     href: '/fique-por-dentro',
   },
@@ -168,7 +173,7 @@ export const newsExtra: NewsItem[] = [
     id: 'jae',
     title: 'Jaé',
     summary: 'Informações e campanhas sobre o cartão Jaé.',
-    imageUrl: `${IMG_BASE}/Jae.png`,
+    imageUrl: `${IMG_BASE}/jae.png`,
     imageAlt: 'Campanha Jaé',
     href: '/fique-por-dentro',
   },
@@ -176,7 +181,7 @@ export const newsExtra: NewsItem[] = [
     id: 'pontos-cegos',
     title: 'Pontos cegos',
     summary: 'Conscientização sobre segurança no trânsito.',
-    imageUrl: `${IMG_BASE}/Pontos_cegos.jpg`,
+    imageUrl: `${IMG_BASE}/pontos-cegos.jpg`,
     imageAlt: 'Campanha pontos cegos',
     href: '/fique-por-dentro',
   },
