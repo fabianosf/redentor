@@ -5,12 +5,14 @@ import { Home } from '@/pages/Home'
 import { Historia } from '@/pages/Historia'
 import { TrabAlhe } from '@/pages/TrabAlhe'
 import { FaleConosco } from '@/pages/FaleConosco'
+import { AchadosPerdidos } from '@/pages/AchadosPerdidos'
+import { FiquePorDentro } from '@/pages/FiquePorDentro'
 import { Placeholder } from '@/pages/Placeholder'
 
 function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || undefined}>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-offwhite">
         <Header />
         <div className="flex-1">
           <Routes>
@@ -18,45 +20,12 @@ function App() {
             <Route path="/historia" element={<Historia />} />
             <Route path="/trabalhe-aqui" element={<TrabAlhe />} />
             <Route path="/fale-conosco" element={<FaleConosco />} />
-            <Route
-              path="/achados-e-perdidos"
-              element={
-                <Placeholder
-                  title="Achados e Perdidos"
-                  description="Perdeu algo em um dos nossos veículos? Entre em contato pelo (21) 2445-0910 ou acesse a página Fale Conosco."
-                />
-              }
-            />
-            <Route
-              path="/fique-por-dentro"
-              element={
-                <Placeholder
-                  title="Fique por Dentro"
-                  description="Notícias, histórias e novidades do Grupo Redentor. Conheça a história de André Luís — motorista há 25 anos e artista plástico — e outras histórias inspiradoras dos nossos colaboradores."
-                />
-              }
-            />
-            <Route
-              path="/fique-por-dentro/:slug"
-              element={
-                <Placeholder
-                  title="Fique por Dentro"
-                  description="Conteúdo completo em breve."
-                />
-              }
-            />
-            <Route
-              path="/viacao-redentor"
-              element={<Historia />}
-            />
-            <Route
-              path="/transportes-futuro"
-              element={<Historia />}
-            />
-            <Route
-              path="/transportes-barra"
-              element={<Historia />}
-            />
+            <Route path="/achados-e-perdidos" element={<AchadosPerdidos />} />
+            <Route path="/fique-por-dentro" element={<FiquePorDentro />} />
+            <Route path="/fique-por-dentro/:slug" element={<FiquePorDentro />} />
+            <Route path="/viacao-redentor" element={<Historia />} />
+            <Route path="/transportes-futuro" element={<Historia />} />
+            <Route path="/transportes-barra" element={<Historia />} />
             <Route
               path="*"
               element={

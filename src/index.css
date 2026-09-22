@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply font-sans text-gray-800 antialiased;
+    @apply bg-offwhite font-sans text-ink antialiased;
     overflow-x: hidden;
   }
 
@@ -18,19 +18,34 @@
   iframe {
     max-width: 100%;
   }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-navy;
+  }
 }
 
-@layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-navy-dark transition hover:bg-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
   }
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .btn-outline-navy {
+    @apply inline-flex items-center justify-center rounded-xl border border-navy/20 bg-white px-5 py-2.5 text-sm font-semibold text-navy transition hover:border-navy hover:bg-navy/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
   }
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center rounded-xl border border-white/70 bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+  }
+
+  .section-shell {
+    @apply mx-auto max-w-7xl px-4;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-400 transition focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15;
   }
 }

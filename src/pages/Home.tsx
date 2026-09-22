@@ -1,17 +1,19 @@
 import { Hero } from '@/components/Hero'
 import { Companies } from '@/components/Companies'
-import { CampaignSection } from '@/components/CampaignSection'
-import { FeatureCards } from '@/components/FeatureCards'
-import { YoutubeSection } from '@/components/YoutubeSection'
+import { Pillars } from '@/components/Pillars'
+import { JobsTeaser } from '@/components/JobsTeaser'
+import { NewsSection } from '@/components/NewsSection'
+import { ContactBand } from '@/components/ContactBand'
 
 export function Home() {
   return (
     <main>
       <Hero />
       <Companies />
-      <CampaignSection />
-      <FeatureCards />
-      <YoutubeSection />
+      <Pillars />
+      <JobsTeaser />
+      <NewsSection />
+      <ContactBand />
     </main>
   )
 }

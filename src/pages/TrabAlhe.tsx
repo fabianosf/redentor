@@ -1,36 +1,24 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { PageHero } from '@/components/PageHero'
+import { jobOpenings, jobRoles, jobsInfo, contactInfo } from '@/data'
 
 interface FormData {
   nome: string
-  sexo: string
-  nascimento: string
-  naturalidade: string
-  nacionalidade: string
-  endereco: string
-  bairro: string
-  cidade: string
-  estado: string
-  cep: string
-  telefone: string
-  celular: string
   email: string
+  telefone: string
   cargo: string
+  cnh: string
   mensagem: string
 }
 
 const initialForm: FormData = {
-  nome: '', sexo: '', nascimento: '', naturalidade: '', nacionalidade: '',
-  endereco: '', bairro: '', cidade: '', estado: '', cep: '',
-  telefone: '', celular: '', email: '', cargo: '', mensagem: '',
+  nome: '',
+  email: '',
+  telefone: '',
+  cargo: '',
+  cnh: '',
+  mensagem: '',
 }
-
-const trainings = [
-  'Formação de Motoristas', 'SMTU', 'Código de Trânsito Brasileiro',
-  'Motorista Cidadão', 'Integração para novos funcionários', 'Resolução 168',
-  'Visitas Técnicas', 'Rio Diesel – Manutenção', 'Guanabara Diesel – Manutenção',
-  'Ciclo de Palestra',
-]
 
 const ALLOWED_KEYS = new Set(Object.keys(initialForm))
 
@@ -38,10 +26,12 @@ export function TrabAlhe() {
   const [form, setForm] = useState<FormData>(initialForm)
   const [sent, setSent] = useState(false)
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) {
     const { name, value } = e.target
     if (!ALLOWED_KEYS.has(name)) return
-    setForm(prev => ({ ...prev, [name]: value }))
+    setForm((prev) => ({ ...prev, [name]: value }))
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -50,165 +40,163 @@ export function TrabAlhe() {
   }
 
   return (
-    <main className="container mx-auto px-4 pt-16 pb-10">
-      <div className="flex items-center p-4 my-4 rounded shadow-sm">
-        <h1 className="text-3xl font-bold text-gray-800">Trabalhe aqui</h1>
-      </div>
+    <main>
+      <PageHero
+        title="Trabalhe conosco"
+        breadcrumb="Trabalhe"
+        description="Envie seu currículo e faça parte do Grupo Redentor."
+      />
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-10">
-        {/* Telefones */}
-        <div className="p-4 border border-gray-200 rounded">
-          <p className="mb-2 text-sm">
-            <span className="font-semibold">Ligue Para Viação Redentor:</span>{' '}
-            <a href="tel:+552124450910" className="text-blue-600 hover:underline">(21) 2445-0910</a>
-          </p>
-          <p className="mb-4 text-sm">
-            <span className="font-semibold">Ligue Para Transportes Barra:</span>{' '}
-            <a href="tel:+552135154666" className="text-blue-600 hover:underline">(21) 3515-4666</a>
-          </p>
-          <p className="font-semibold text-sm mb-1">Horários:</p>
-          <ul className="text-sm font-mono space-y-0.5 text-gray-600">
-            {[['Seg','08:00 - 18:00'],['Ter','08:00 - 18:00'],['Qua','08:00 - 18:00'],
-              ['Qui','08:00 - 18:00'],['Sex','08:00 - 17:00'],['Sab','Fechado'],['Dom','Fechado'],
-            ].map(([d, h]) => (
-              <li key={d}>{d}: {h}</li>
-            ))}
-          </ul>
-        </div>
+      <section className="py-14 sm:py-16">
+        <div className="section-shell grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-6">
+            <article className="card-surface p-6">
+              <h2 className="text-lg font-bold text-navy">Vagas em destaque</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {jobOpenings.map((job) => (
+                  <span
+                    key={job.id}
+                    className="rounded-full border border-navy/15 bg-offwhite px-3 py-1.5 text-sm font-medium text-navy"
+                  >
+                    {job.title}
+                  </span>
+                ))}
+              </div>
+            </article>
 
-        {/* E-mails */}
-        <div className="p-4 border border-gray-200 rounded">
-          <p className="text-sm mb-2">
-            <span className="font-semibold">Envie um e-mail:</span>{' '}
-            <a href="mailto:rh@gruporedentor.com.br" className="text-blue-600 hover:underline">
-              rh@gruporedentor.com.br
-            </a>
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">Envie um e-mail:</span>{' '}
-            <a href="mailto:rh@transportesbarra.com.br" className="text-blue-600 hover:underline">
-              rh@transportesbarra.com.br
-            </a>
-          </p>
-        </div>
-
-        {/* Treinamentos */}
-        <div className="p-4 border border-gray-200 rounded">
-          <p className="font-semibold text-sm mb-2">Treinamentos Específicos</p>
-          <ul className="text-sm text-gray-600 space-y-0.5 list-disc list-inside">
-            {trainings.map(t => <li key={t}>{t}</li>)}
-          </ul>
-        </div>
-      </div>
-
-      {/* Form */}
-      <div className="max-w-2xl">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">Cadastre Seu Currículo</h2>
-
-        {sent ? (
-          <div className="rounded bg-green-50 border border-green-200 p-6 text-center">
-            <p className="text-green-700 font-semibold">Currículo enviado com sucesso!</p>
-            <p className="text-green-600 text-sm mt-1">Entraremos em contato em breve.</p>
+            <article className="card-surface p-6">
+              <h2 className="text-lg font-bold text-navy">Inscrições presenciais</h2>
+              <p className="mt-3 text-sm text-ink-muted">{jobsInfo.schedule}</p>
+              <ul className="mt-4 space-y-2 text-sm text-ink-muted">
+                {jobsInfo.addresses.map((address) => (
+                  <li key={address}>{address}</li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-ink-muted">
+                E-mail:{' '}
+                <a href={`mailto:${jobsInfo.email}`} className="font-medium text-navy hover:underline">
+                  {jobsInfo.email}
+                </a>
+              </p>
+              <p className="mt-2 text-sm text-ink-muted">
+                Telefones:{' '}
+                {contactInfo.phones.map((p, i) => (
+                  <span key={p.tel}>
+                    {i > 0 && ' · '}
+                    <a href={`tel:${p.tel}`} className="font-medium text-navy hover:underline">
+                      {p.value}
+                    </a>
+                  </span>
+                ))}
+              </p>
+            </article>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nome completo</label>
-              <input name="nome" value={form.nome} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
-              <select name="sexo" value={form.sexo} onChange={handleChange} required
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400">
-                <option value="" disabled>Escolha</option>
-                <option value="MASCULINO">Masculino</option>
-                <option value="FEMININO">Feminino</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nascimento</label>
-              <input type="date" name="nascimento" value={form.nascimento} onChange={handleChange} required
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Naturalidade</label>
-              <input name="naturalidade" value={form.naturalidade} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nacionalidade</label>
-              <input name="nacionalidade" value={form.nacionalidade} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Endereço completo</label>
-              <input name="endereco" value={form.endereco} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
-              <input name="bairro" value={form.bairro} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
-              <input name="cidade" value={form.cidade} onChange={handleChange} required maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-              <input name="estado" value={form.estado} onChange={handleChange} required maxLength={2}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">CEP</label>
-              <input name="cep" value={form.cep} onChange={handleChange} required maxLength={9}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Telefone (recado)</label>
-              <input name="telefone" value={form.telefone} onChange={handleChange} maxLength={15}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Celular</label>
-              <input name="celular" value={form.celular} onChange={handleChange} required maxLength={15}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input type="email" name="email" value={form.email} onChange={handleChange} required maxLength={320}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Cargo pretendido</label>
-              <input name="cargo" value={form.cargo} onChange={handleChange} maxLength={100}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Observações</label>
-              <textarea name="mensagem" value={form.mensagem} onChange={handleChange} rows={3}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400 min-h-[100px]" />
-            </div>
-            <div className="sm:col-span-2 flex gap-3">
-              <button type="submit"
-                className="px-6 py-2 bg-gray-700 text-white text-sm rounded hover:bg-gray-800 transition-colors">
-                Enviar
-              </button>
-              <button type="reset" onClick={() => setForm(initialForm)}
-                className="px-6 py-2 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 transition-colors">
-                Apagar
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
 
-      <hr className="my-10 border-gray-200" />
-      <Link to="/" className="text-sm text-gray-500 hover:text-gray-800 transition-colors">
-        ← Voltar para Home
-      </Link>
+          <div className="card-surface p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-navy">Cadastre seu currículo</h2>
+            <p className="mt-2 text-sm text-ink-muted">
+              Preencha os dados abaixo. Campos com * são obrigatórios.
+            </p>
+
+            {sent ? (
+              <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
+                <p className="font-semibold text-emerald-800">Currículo enviado com sucesso!</p>
+                <p className="mt-1 text-sm text-emerald-700">Entraremos em contato em breve.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-sm font-medium text-ink">Nome completo *</label>
+                  <input
+                    name="nome"
+                    value={form.nome}
+                    onChange={handleChange}
+                    required
+                    maxLength={100}
+                    className="field-input"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">E-mail *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    maxLength={320}
+                    className="field-input"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">Telefone *</label>
+                  <input
+                    name="telefone"
+                    value={form.telefone}
+                    onChange={handleChange}
+                    required
+                    maxLength={15}
+                    className="field-input"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">Cargo pretendido *</label>
+                  <select
+                    name="cargo"
+                    value={form.cargo}
+                    onChange={handleChange}
+                    required
+                    className="field-input"
+                  >
+                    <option value="" disabled>
+                      Selecione
+                    </option>
+                    {jobRoles.map((role) => (
+                      <option key={role} value={role}>
+                        {role}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">CNH</label>
+                  <input
+                    name="cnh"
+                    value={form.cnh}
+                    onChange={handleChange}
+                    placeholder="Ex.: D, E"
+                    maxLength={20}
+                    className="field-input"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-sm font-medium text-ink">Currículo (PDF)</label>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    className="field-input file:mr-3 file:rounded-lg file:border-0 file:bg-navy/5 file:px-3 file:py-1 file:text-sm file:font-medium file:text-navy"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-sm font-medium text-ink">Observações</label>
+                  <textarea
+                    name="mensagem"
+                    value={form.mensagem}
+                    onChange={handleChange}
+                    rows={4}
+                    className="field-input min-h-[110px]"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <button type="submit" className="btn-gold">
+                    Enviar currículo
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
