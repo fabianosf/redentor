@@ -70,8 +70,8 @@ export const heroSlides: HeroSlide[] = [
     id: 1,
     title: 'Mais de 70 anos levando o Rio',
     subtitle: 'Viação Redentor, Transportes Futuro e Transportes Barra',
-    imageUrl: `${IMG_BASE}/foto-1.jpg`,
-    imageAlt: 'Ônibus azul e branco do Grupo Redentor no Rio de Janeiro',
+    imageUrl: `${IMG_BASE}/hero-onibus.jpg`,
+    imageAlt: 'Ônibus institucional do Grupo Redentor',
   },
   {
     id: 2,
