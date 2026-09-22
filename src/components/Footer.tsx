@@ -7,11 +7,11 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-dark text-white">
-      <div className="section-shell py-14">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
+      <div className="section-shell py-10 sm:py-14">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2.5">
-              <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden="true">
+              <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0" aria-hidden="true">
                 <circle cx="20" cy="20" r="19" fill="#FFD700" />
                 <path
                   d="M20 8c1.2 0 2.2.8 2.5 1.9l.4 1.6h2.6c.7 0 1.2.7.9 1.3l-1.3 2.4 1.7 1.7c.5.5.2 1.4-.5 1.5l-2.7.4-.8 2.6c-.2.7-1.1.9-1.6.4L20 20.3l-1.2 1.5c-.5.5-1.4.3-1.6-.4l-.8-2.6-2.7-.4c-.7-.1-1-1-.5-1.5l1.7-1.7-1.3-2.4c-.3-.6.2-1.3.9-1.3h2.6l.4-1.6C17.8 8.8 18.8 8 20 8z"
@@ -29,7 +29,7 @@ export function Footer() {
 
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h5 className="mb-4 text-sm font-semibold uppercase tracking-wide text-white">
+              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white sm:mb-4">
                 {section.title}
               </h5>
               <ul className="space-y-2.5 text-sm">

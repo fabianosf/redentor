@@ -47,10 +47,10 @@ export function TrabAlhe() {
         description="Envie seu currículo e faça parte do Grupo Redentor."
       />
 
-      <section className="py-14 sm:py-16">
-        <div className="section-shell grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-6">
-            <article className="card-surface p-6">
+      <section className="section-pad">
+        <div className="section-shell grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+          <div className="space-y-4 sm:space-y-6">
+            <article className="card-surface p-5 sm:p-6">
               <h2 className="text-lg font-bold text-navy">Vagas em destaque</h2>
               <div className="mt-4 flex flex-wrap gap-2">
                 {jobOpenings.map((job) => (
@@ -64,7 +64,7 @@ export function TrabAlhe() {
               </div>
             </article>
 
-            <article className="card-surface p-6">
+            <article className="card-surface p-5 sm:p-6">
               <h2 className="text-lg font-bold text-navy">Inscrições presenciais</h2>
               <p className="mt-3 text-sm text-ink-muted">{jobsInfo.schedule}</p>
               <ul className="mt-4 space-y-2 text-sm text-ink-muted">
@@ -92,7 +92,7 @@ export function TrabAlhe() {
             </article>
           </div>
 
-          <div className="card-surface p-6 sm:p-8">
+          <div className="card-surface p-5 sm:p-6 lg:p-8">
             <h2 className="text-xl font-bold text-navy">Cadastre seu currículo</h2>
             <p className="mt-2 text-sm text-ink-muted">
               Preencha os dados abaixo. Campos com * são obrigatórios.
@@ -188,7 +188,7 @@ export function TrabAlhe() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <button type="submit" className="btn-gold">
+                  <button type="submit" className="btn-gold w-full sm:w-auto">
                     Enviar currículo
                   </button>
                 </div>

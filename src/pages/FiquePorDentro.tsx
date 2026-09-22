@@ -67,11 +67,11 @@ export function FiquePorDentro() {
         description="Campanhas, histórias e vídeos do dia a dia do Grupo Redentor."
       />
 
-      <section className="py-14 sm:py-16">
-        <div className="section-shell space-y-14">
+      <section className="section-pad">
+        <div className="section-shell space-y-10 sm:space-y-14">
           <div>
-            <h2 className="text-2xl font-extrabold text-navy">Campanhas e novidades</h2>
-            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">Campanhas e novidades</h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {cards.map((item) => (
                 <article key={item.id} className="card-surface overflow-hidden">
                   <div className="aspect-video bg-slate-100">
@@ -85,7 +85,7 @@ export function FiquePorDentro() {
                       }}
                     />
                   </div>
-                  <div className="p-5">
+                  <div className="p-4 sm:p-5">
                     <h3 className="text-base font-bold text-navy">{item.title}</h3>
                     <p className="mt-2 text-sm text-ink-muted">{item.summary}</p>
                   </div>
@@ -95,8 +95,8 @@ export function FiquePorDentro() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-extrabold text-navy">Vídeos</h2>
-            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">Vídeos</h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {videos.map((video) => (
                 <VideoCard key={video.youtubeId} {...video} />
               ))}

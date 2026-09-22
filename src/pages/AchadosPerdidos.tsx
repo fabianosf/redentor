@@ -36,9 +36,9 @@ export function AchadosPerdidos() {
         description="Perdeu algo em um dos nossos ônibus? Registre aqui ou ligue para nós."
       />
 
-      <section className="py-14 sm:py-16">
-        <div className="section-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-          <article className="card-surface h-fit p-6 sm:p-8">
+      <section className="section-pad">
+        <div className="section-shell grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
+          <article className="card-surface h-fit p-5 sm:p-6 lg:p-8">
             <h2 className="text-lg font-bold text-navy">Atendimento</h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-muted">
               Além do formulário, você também pode ligar para a central de Achados e Perdidos.
@@ -52,7 +52,7 @@ export function AchadosPerdidos() {
             </a>
           </article>
 
-          <article className="card-surface p-6 sm:p-8">
+          <article className="card-surface p-5 sm:p-6 lg:p-8">
             <h2 className="text-xl font-bold text-navy">Registrar ocorrência</h2>
             <p className="mt-2 text-sm text-ink-muted">
               Informe linha ou número do ônibus, data e descrição do objeto.
@@ -114,7 +114,7 @@ export function AchadosPerdidos() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <button type="submit" className="btn-gold">
+                  <button type="submit" className="btn-gold w-full sm:w-auto">
                     Enviar registro
                   </button>
                 </div>

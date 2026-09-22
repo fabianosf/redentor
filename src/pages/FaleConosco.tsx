@@ -42,10 +42,10 @@ export function FaleConosco() {
         description="Canais oficiais de atendimento do Grupo Redentor."
       />
 
-      <section className="py-14 sm:py-16">
-        <div className="section-shell space-y-8">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <article className="card-surface p-6">
+      <section className="section-pad">
+        <div className="section-shell space-y-6 sm:space-y-8">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
+            <article className="card-surface p-5 sm:p-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/5">
                 <Phone className="h-5 w-5 text-navy" aria-hidden="true" />
               </div>
@@ -177,7 +177,7 @@ export function FaleConosco() {
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <button type="submit" className="btn-gold">
+                    <button type="submit" className="btn-gold w-full sm:w-auto">
                       Enviar mensagem
                     </button>
                   </div>
