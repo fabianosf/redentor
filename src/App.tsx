@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LanguageProvider, useLanguage } from '@/i18n'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { GoogleTranslate } from '@/components/GoogleTranslate'
 import { Home } from '@/pages/Home'
 import { Historia } from '@/pages/Historia'
 import { TrabAlhe } from '@/pages/TrabAlhe'
@@ -23,6 +24,7 @@ function NotFoundRoute() {
 function AppRoutes() {
   return (
     <div className="flex min-h-screen flex-col bg-offwhite">
+      <GoogleTranslate />
       <Header />
       <div className="flex-1">
         <Routes>

@@ -9,6 +9,12 @@ import {
 } from 'react'
 import { pt, type TranslationDict } from './pt'
 import { en } from './en'
+import {
+  applyGoogleTranslateLang,
+  clearGoogleTranslate,
+  getGoogTransLang,
+  readStoredGoogleLang,
+} from '@/lib/googleTranslate'
 
 export type Locale = 'pt' | 'en'
 
@@ -28,19 +34,41 @@ export type TranslationKey = NestedKeyOf<typeof pt>
 type LanguageContextValue = {
   locale: Locale
   setLocale: (locale: Locale) => void
+  setGoogleLanguage: (lang: string) => void
+  activeGoogleLang: string | null
   t: (key: TranslationKey, vars?: Record<string, string | number>) => string
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-function readStoredLocale(): Locale {
+function readStoredLocaleOrNull(): Locale | null {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'en' || stored === 'pt') return stored
   } catch {
     /* ignore */
   }
+  return null
+}
+
+function detectBrowserLocale(): Locale {
+  // Other languages stay on PT source so Google Translate can machine-translate.
+  if (readStoredGoogleLang()) return 'pt'
+
+  const langs = navigator.languages?.length
+    ? navigator.languages
+    : [navigator.language]
+  if (langs.some((l) => l.toLowerCase().startsWith('pt'))) return 'pt'
+  if (langs.some((l) => l.toLowerCase().startsWith('en'))) return 'en'
   return 'pt'
+}
+
+function resolveInitialLocale(): Locale {
+  if (readStoredGoogleLang()) return 'pt'
+  const stored = readStoredLocaleOrNull()
+  if (stored) return stored
+  if (typeof navigator === 'undefined') return 'pt'
+  return detectBrowserLocale()
 }
 
 function getByPath(dict: TranslationDict, key: string): string {
@@ -58,21 +86,42 @@ function getByPath(dict: TranslationDict, key: string): string {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(() =>
-    typeof window === 'undefined' ? 'pt' : readStoredLocale(),
+    typeof window === 'undefined' ? 'pt' : resolveInitialLocale(),
+  )
+  const [activeGoogleLang, setActiveGoogleLang] = useState<string | null>(() =>
+    typeof window === 'undefined'
+      ? null
+      : readStoredGoogleLang() || getGoogTransLang(),
   )
 
   const setLocale = useCallback((next: Locale) => {
+    const hadGoogle = Boolean(readStoredGoogleLang() || getGoogTransLang())
+    clearGoogleTranslate()
+    setActiveGoogleLang(null)
     setLocaleState(next)
     try {
       localStorage.setItem(STORAGE_KEY, next)
     } catch {
       /* ignore */
     }
+    if (hadGoogle) window.location.reload()
+  }, [])
+
+  const setGoogleLanguage = useCallback((lang: string) => {
+    setLocaleState('pt')
+    setActiveGoogleLang(lang)
+    applyGoogleTranslateLang(lang)
   }, [])
 
   useEffect(() => {
+    if (activeGoogleLang) {
+      document.documentElement.lang = activeGoogleLang
+      document.documentElement.dir = activeGoogleLang === 'ar' ? 'rtl' : 'ltr'
+      return
+    }
     document.documentElement.lang = locale === 'en' ? 'en' : 'pt-BR'
-  }, [locale])
+    document.documentElement.dir = 'ltr'
+  }, [locale, activeGoogleLang])
 
   const t = useCallback(
     (key: TranslationKey, vars?: Record<string, string | number>) => {
@@ -88,8 +137,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   )
 
   const value = useMemo(
-    () => ({ locale, setLocale, t }),
-    [locale, setLocale, t],
+    () => ({ locale, setLocale, setGoogleLanguage, activeGoogleLang, t }),
+    [locale, setLocale, setGoogleLanguage, activeGoogleLang, t],
   )
 
   return (

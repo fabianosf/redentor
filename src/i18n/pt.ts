@@ -13,6 +13,10 @@ export const pt = {
     closeMenu: 'Fechar menu',
     mainNav: 'Principal',
     mobileNav: 'Mobile',
+    language: 'Idioma',
+    languageMenu: 'Escolher idioma',
+    langPt: 'Português',
+    langEn: 'English',
   },
   hero: {
     label: 'DESDE 1950',

@@ -15,6 +15,10 @@ export const en: TranslationDict = {
     closeMenu: 'Close menu',
     mainNav: 'Main',
     mobileNav: 'Mobile',
+    language: 'Language',
+    languageMenu: 'Choose language',
+    langPt: 'Português',
+    langEn: 'English',
   },
   hero: {
     label: 'SINCE 1950',
