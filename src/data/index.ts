@@ -239,6 +239,7 @@ export const newsItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
   titleKey: TranslationKey
   summaryKey: TranslationKey
   altKey: TranslationKey
+  categoryKey: TranslationKey
   /** cover preenche o card; contain evita corte em artes paisagem (ex.: vagas). */
   imageFit?: 'cover' | 'contain'
 })[] = [
@@ -247,27 +248,30 @@ export const newsItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
     titleKey: 'news.vagasTitle',
     summaryKey: 'news.vagasSummary',
     altKey: 'news.vagasAlt',
+    categoryKey: 'news.vagasCategory',
     imageUrl: `${IMG_BASE}/oferta-vagas-card.jpeg`,
     href: '/trabalhe-aqui',
-    imageFit: 'contain',
+    imageFit: 'cover',
   },
   {
     id: 'aniversario',
     titleKey: 'news.aniversarioTitle',
     summaryKey: 'news.aniversarioSummary',
     altKey: 'news.aniversarioAlt',
+    categoryKey: 'news.aniversarioCategory',
     imageUrl: `${IMG_BASE}/aniversario.jpeg`,
     href: '/fique-por-dentro',
-    imageFit: 'contain',
+    imageFit: 'cover',
   },
   {
     id: 'campanha',
     titleKey: 'news.campanhaTitle',
     summaryKey: 'news.campanhaSummary',
     altKey: 'news.campanhaAlt',
+    categoryKey: 'news.campanhaCategory',
     imageUrl: `${IMG_BASE}/setembro-amarelo-card.jpg`,
     href: '/fique-por-dentro#responsabilidade-social',
-    imageFit: 'contain',
+    imageFit: 'cover',
   },
 ]
 

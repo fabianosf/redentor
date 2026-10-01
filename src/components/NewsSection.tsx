@@ -32,13 +32,13 @@ export function NewsSection() {
             <Link
               key={item.id}
               to={item.href}
-              className="card-surface flex flex-col overflow-hidden"
+              className="card-surface group flex flex-col overflow-hidden"
             >
-              <div className="flex aspect-[1131/1600] items-center justify-center overflow-hidden bg-white">
+              <div className="aspect-[16/10] overflow-hidden bg-offwhite">
                 <img
                   src={item.imageUrl}
                   alt={t(item.altKey)}
-                  className="h-full w-full object-contain object-center"
+                  className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.03]"
                   loading="lazy"
                   decoding="async"
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -47,10 +47,23 @@ export function NewsSection() {
                   }}
                 />
               </div>
-              <div className="px-4 py-4 text-center sm:px-5 sm:py-5">
-                <h3 className="text-base font-bold text-navy sm:text-lg">
+              <div className="flex flex-1 flex-col px-4 py-4 sm:px-5 sm:py-5">
+                <span className="inline-flex w-fit rounded-full bg-gold px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-navy-dark">
+                  {t(item.categoryKey)}
+                </span>
+                <h3 className="mt-3 text-base font-bold text-navy sm:text-lg">
                   {t(item.titleKey)}
                 </h3>
+                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-ink-muted">
+                  {t(item.summaryKey)}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
+                  {t('topics.seeMore')}
+                  <ArrowRight
+                    className="h-4 w-4 transition group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                </span>
               </div>
             </Link>
           ))}
