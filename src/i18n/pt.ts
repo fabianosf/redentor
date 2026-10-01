@@ -64,7 +64,7 @@ export const pt = {
     socialDesc: 'Compromisso com a comunidade e o desenvolvimento sustentável do Rio.',
   },
   jobs: {
-    eyebrow: 'Carreiras',
+    eyebrow: 'Oportunidade profissional',
     title: 'Vagas abertas',
     subtitle: 'Faça parte de um grupo com {years} anos de história no transporte do Rio.',
     sendCv: 'Enviar currículo',
@@ -77,7 +77,7 @@ export const pt = {
     other: 'Outro',
   },
   news: {
-    eyebrow: 'Novidades',
+    eyebrow: 'Fique por dentro',
     title: 'Novidades',
     seeAll: 'Ver todas',
     vagasCategory: 'Vagas',

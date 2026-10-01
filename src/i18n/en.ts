@@ -66,7 +66,7 @@ export const en: TranslationDict = {
     socialDesc: 'Committed to the community and Rio’s sustainable development.',
   },
   jobs: {
-    eyebrow: 'Careers',
+    eyebrow: 'Professional opportunity',
     title: 'Open positions',
     subtitle: 'Join a group with {years} years of history in Rio’s transport.',
     sendCv: 'Send resume',
@@ -79,7 +79,7 @@ export const en: TranslationDict = {
     other: 'Other',
   },
   news: {
-    eyebrow: 'News',
+    eyebrow: 'Stay informed',
     title: 'News',
     seeAll: 'See all',
     vagasCategory: 'Jobs',
