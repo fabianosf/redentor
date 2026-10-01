@@ -14,25 +14,27 @@ function CompanyCard({ company }: { company: CompanyItem }) {
   return (
     <Link
       to={company.href}
-      className="card-surface flex flex-col items-center p-6 text-center sm:p-8"
+      className="card-surface flex flex-col overflow-hidden text-center"
     >
-      <div className="flex h-20 w-full items-center justify-center sm:h-24">
+      <div className="flex min-h-[9.5rem] w-full items-center justify-center bg-white px-5 py-6 sm:min-h-[10.5rem]">
         {failed ? (
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy text-xl font-bold text-gold sm:h-16 sm:w-16 sm:text-2xl">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-navy text-2xl font-bold text-gold">
             {company.logoInitial}
           </div>
         ) : (
           <img
             src={company.logoImage}
             alt={company.name}
-            className="max-h-16 w-auto max-w-full object-contain sm:max-h-20"
+            className="h-auto w-full max-h-28 object-contain object-center"
             loading="lazy"
             onError={() => setFailed(true)}
           />
         )}
       </div>
-      <h3 className="mt-4 text-base font-bold text-navy sm:text-lg">{company.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t(company.descriptionKey)}</p>
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <h3 className="text-base font-bold text-navy sm:text-lg">{company.name}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t(company.descriptionKey)}</p>
+      </div>
     </Link>
   )
 }

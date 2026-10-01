@@ -27,23 +27,30 @@ export function NewsSection() {
           </Link>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {newsItems.map((item) => (
-            <Link key={item.id} to={item.href} className="card-surface overflow-hidden">
-              <div className="aspect-video overflow-hidden bg-slate-100">
+            <Link
+              key={item.id}
+              to={item.href}
+              className="card-surface flex flex-col overflow-hidden"
+            >
+              <div className="flex aspect-[1131/1600] items-center justify-center overflow-hidden bg-white">
                 <img
                   src={item.imageUrl}
                   alt={t(item.altKey)}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain object-center"
                   loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   onError={(event) => {
                     event.currentTarget.src = FALLBACK_IMAGE
                   }}
                 />
               </div>
-              <div className="p-4 sm:p-5">
-                <h3 className="text-base font-bold text-navy">{t(item.titleKey)}</h3>
-                <p className="mt-2 line-clamp-2 text-sm text-ink-muted">{t(item.summaryKey)}</p>
+              <div className="px-4 py-4 text-center sm:px-5 sm:py-5">
+                <h3 className="text-base font-bold text-navy sm:text-lg">
+                  {t(item.titleKey)}
+                </h3>
               </div>
             </Link>
           ))}

@@ -1,8 +1,55 @@
 import { useState } from 'react'
 import { Play } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
-import { FALLBACK_IMAGE, newsExtra, newsItems, videos } from '@/data'
+import {
+  FALLBACK_IMAGE,
+  newsExtraItems,
+  newsItems,
+  safetyItems,
+  socialItems,
+  videos,
+} from '@/data'
 import { useLanguage, type TranslationKey } from '@/i18n'
+
+function ContentCard({
+  imageUrl,
+  altKey,
+  titleKey,
+  summaryKey,
+  titleOnly = false,
+}: {
+  imageUrl: string
+  altKey: TranslationKey
+  titleKey: TranslationKey
+  summaryKey: TranslationKey
+  titleOnly?: boolean
+}) {
+  const { t } = useLanguage()
+
+  return (
+    <article className="card-surface flex flex-col overflow-hidden">
+      <div className="flex aspect-[1131/1600] items-center justify-center overflow-hidden bg-white">
+        <img
+          src={imageUrl}
+          alt={t(altKey)}
+          className="h-full w-full object-contain object-center"
+          loading="lazy"
+          decoding="async"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          onError={(event) => {
+            event.currentTarget.src = FALLBACK_IMAGE
+          }}
+        />
+      </div>
+      <div className={`px-4 py-4 sm:px-5 sm:py-5 ${titleOnly ? 'text-center' : ''}`}>
+        <h3 className="text-base font-bold text-navy sm:text-lg">{t(titleKey)}</h3>
+        {!titleOnly ? (
+          <p className="mt-2 text-sm text-ink-muted">{t(summaryKey)}</p>
+        ) : null}
+      </div>
+    </article>
+  )
+}
 
 function VideoCard({
   youtubeId,
@@ -62,53 +109,77 @@ function VideoCard({
 
 export function FiquePorDentro() {
   const { t } = useLanguage()
-  const cards = [...newsItems, ...newsExtra]
+  const novidades = [
+    ...newsItems.filter((item) => item.id !== 'campanha'),
+    ...newsExtraItems,
+  ]
 
   return (
     <main>
-      <PageHero
-        title={t('inside.title')}
-        description={t('inside.description')}
-      />
+      <PageHero title={t('inside.title')} description={t('inside.description')} />
 
       <section className="section-pad">
-        <div className="section-shell space-y-10 sm:space-y-14">
-          <div>
-            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">{t('inside.campaigns')}</h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {cards.map((item) => (
-                <article key={item.id} className="card-surface overflow-hidden">
-                  <div className="aspect-video bg-slate-100">
-                    <img
-                      src={item.imageUrl}
-                      alt={t(item.altKey)}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                      onError={(event) => {
-                        event.currentTarget.src = FALLBACK_IMAGE
-                      }}
-                    />
-                  </div>
-                  <div className="p-4 sm:p-5">
-                    <h3 className="text-base font-bold text-navy">
-                      {'title' in item && item.title
-                        ? item.title
-                        : item.titleKey
-                          ? t(item.titleKey)
-                          : ''}
-                    </h3>
-                    <p className="mt-2 text-sm text-ink-muted">{t(item.summaryKey)}</p>
-                  </div>
-                </article>
+        <div className="section-shell space-y-12 sm:space-y-16">
+          <div id="novidades" className="scroll-mt-24">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">
+              {t('inside.campaigns')}
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-5 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {novidades.map((item) => (
+                <ContentCard
+                  key={item.id}
+                  imageUrl={item.imageUrl}
+                  altKey={item.altKey}
+                  titleKey={item.titleKey}
+                  summaryKey={item.summaryKey}
+                  titleOnly
+                />
               ))}
             </div>
           </div>
 
-          <div>
-            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">{t('inside.videos')}</h2>
+          <div id="responsabilidade-social" className="scroll-mt-24">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">
+              {t('inside.socialSection')}
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {socialItems.map((item) => (
+                <ContentCard
+                  key={item.id}
+                  imageUrl={item.imageUrl}
+                  altKey={item.altKey}
+                  titleKey={item.titleKey}
+                  summaryKey={item.summaryKey}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div id="capacitacao" className="scroll-mt-24">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">
+              {t('inside.trainingSection')}
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-ink-muted">{t('topics.trainingDesc')}</p>
             <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {videos.map((video) => (
                 <VideoCard key={video.youtubeId} {...video} />
+              ))}
+            </div>
+          </div>
+
+          <div id="seguranca" className="scroll-mt-24">
+            <h2 className="text-xl font-extrabold text-navy sm:text-2xl">
+              {t('inside.safetySection')}
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {safetyItems.map((item) => (
+                <ContentCard
+                  key={item.id}
+                  imageUrl={item.imageUrl}
+                  altKey={item.altKey}
+                  titleKey={item.titleKey}
+                  summaryKey={item.summaryKey}
+                />
               ))}
             </div>
           </div>

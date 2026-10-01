@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ExternalLink } from 'lucide-react'
-import { footerSections } from '@/data'
+import { LOGO_IMAGE, dpoInfo, footerSections } from '@/data'
 import { useLanguage } from '@/i18n'
 
 export function Footer() {
@@ -10,23 +10,41 @@ export function Footer() {
   return (
     <footer className="bg-navy-dark text-white">
       <div className="section-shell py-10 sm:py-14">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <svg viewBox="0 0 40 40" className="h-9 w-9 shrink-0" aria-hidden="true">
-                <circle cx="20" cy="20" r="19" fill="#FFD700" />
-                <path
-                  d="M20 8c1.2 0 2.2.8 2.5 1.9l.4 1.6h2.6c.7 0 1.2.7.9 1.3l-1.3 2.4 1.7 1.7c.5.5.2 1.4-.5 1.5l-2.7.4-.8 2.6c-.2.7-1.1.9-1.6.4L20 20.3l-1.2 1.5c-.5.5-1.4.3-1.6-.4l-.8-2.6-2.7-.4c-.7-.1-1-1-.5-1.5l1.7-1.7-1.3-2.4c-.3-.6.2-1.3.9-1.3h2.6l.4-1.6C17.8 8.8 18.8 8 20 8z"
-                  fill="#001a52"
-                />
-                <rect x="17.5" y="22" width="5" height="10" rx="1" fill="#001a52" />
-              </svg>
-              <div className="leading-tight">
-                <span className="block text-[11px] font-semibold tracking-[0.18em] text-gold">GRUPO</span>
-                <span className="block text-base font-extrabold tracking-wide">REDENTOR</span>
-              </div>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-6">
+          <div className="sm:col-span-2 lg:col-span-2">
+            <Link
+              to="/"
+              className="inline-flex rounded-xl bg-white px-3 py-2 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            >
+              <img
+                src={LOGO_IMAGE}
+                alt="Grupo Redentor"
+                className="h-20 w-auto max-w-[380px] object-contain object-left sm:h-24 sm:max-w-[460px]"
+              />
+            </Link>
+
+            <div className="mt-6 space-y-1.5 text-sm text-white/70">
+              <h5 className="text-xs font-semibold uppercase tracking-wide text-gold">
+                {t('footer.dpoTitle')}
+              </h5>
+              <p className="text-white/85">{dpoInfo.company}</p>
+              <p>
+                {t('footer.dpoCnpjLabel')} {dpoInfo.cnpj}
+              </p>
+              {dpoInfo.addressLines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+              <p>
+                <a
+                  href={`mailto:${dpoInfo.email}`}
+                  className="text-white/85 transition hover:text-gold"
+                >
+                  {dpoInfo.email}
+                </a>
+              </p>
             </div>
-            <p className="mt-4 text-sm text-white/60">{t('footer.copyright', { year })}</p>
+
+            <p className="mt-5 text-sm text-white/60">{t('footer.copyright', { year })}</p>
           </div>
 
           {footerSections.map((section) => (

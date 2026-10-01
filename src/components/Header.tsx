@@ -34,7 +34,7 @@ function BrandLogo() {
     <img
       src={LOGO_IMAGE}
       alt="Grupo Redentor"
-      className="h-8 w-auto max-w-[150px] object-contain sm:h-9 sm:max-w-[180px]"
+      className="h-16 w-auto max-w-[340px] object-contain object-left sm:h-[4.5rem] sm:max-w-[440px] lg:h-20 lg:max-w-[520px]"
       onError={() => setFailed(true)}
     />
   )
@@ -98,8 +98,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
-      <div className="section-shell">
-        <div className="flex h-14 items-center justify-between gap-3 sm:h-16 sm:gap-4">
+      <div className="section-shell !pl-2 sm:!pl-3 lg:!pl-4">
+        <div className="flex h-20 items-center justify-between gap-3 sm:h-24 sm:gap-4 lg:h-[6.5rem]">
           <Link to="/" className="min-w-0 shrink-0" onClick={() => setOpen(false)}>
             <BrandLogo />
           </Link>
@@ -107,12 +107,12 @@ export function Header() {
           <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label={t('nav.mainNav')}>
             {navItems.map((item) => {
               const active = isActive(pathname, item.href)
-              const className = `relative px-2.5 py-2 text-sm font-medium transition xl:px-3 ${
+              const className = `relative px-3 py-2 text-base font-medium transition xl:px-3.5 ${
                 active ? 'text-navy' : 'text-ink-muted hover:text-navy'
               }`
 
               const underline = active ? (
-                <span className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-gold xl:inset-x-3" />
+                <span className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-gold xl:inset-x-3.5" />
               ) : null
 
               if (item.external) {
@@ -123,6 +123,7 @@ export function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={className}
+                    aria-label={`${t(item.labelKey)} (abre em nova aba)`}
                   >
                     {t(item.labelKey)}
                   </a>
@@ -161,13 +162,13 @@ export function Header() {
 
       {open && (
         <nav
-          className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
+          className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
           aria-label={t('nav.mobileNav')}
         >
           <div className="section-shell space-y-1 py-3 pb-6">
             {navItems.map((item) => {
               const active = isActive(pathname, item.href)
-              const className = `block rounded-lg px-3 py-3 text-sm font-medium ${
+              const className = `block rounded-lg px-3 py-3 text-base font-medium ${
                 active ? 'bg-navy/5 text-navy' : 'text-ink-muted'
               }`
 
@@ -180,6 +181,7 @@ export function Header() {
                     rel="noopener noreferrer"
                     onClick={() => setOpen(false)}
                     className={className}
+                    aria-label={`${t(item.labelKey)} (abre em nova aba)`}
                   >
                     {t(item.labelKey)}
                   </a>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Clock } from 'lucide-react'
-import { jobOpenings, jobsInfo } from '@/data'
+import { GROUP_YEARS, jobOpenings, jobsInfo } from '@/data'
 import { useLanguage } from '@/i18n'
 
 export function JobsTeaser() {
@@ -18,7 +18,9 @@ export function JobsTeaser() {
               <h2 className="mt-2 text-2xl font-extrabold text-navy sm:text-3xl">
                 {t('jobs.title')}
               </h2>
-              <p className="mt-3 text-sm text-ink-muted sm:text-base">{t('jobs.subtitle')}</p>
+              <p className="mt-3 text-sm text-ink-muted sm:text-base">
+                {t('jobs.subtitle', { years: GROUP_YEARS })}
+              </p>
 
               <div className="mt-5 flex flex-wrap gap-2 sm:mt-6">
                 {jobOpenings.map((job) => (
@@ -47,12 +49,17 @@ export function JobsTeaser() {
                   <p className="break-words text-sm text-ink-muted">{address}</p>
                 </div>
               ))}
-              <p className="break-all text-sm text-ink-muted">
-                {t('jobs.emailLabel')}{' '}
-                <a href={`mailto:${jobsInfo.email}`} className="font-medium text-navy hover:underline">
-                  {jobsInfo.email}
-                </a>
-              </p>
+              {jobsInfo.emails.map((email) => (
+                <p key={email.value} className="break-all text-sm text-ink-muted">
+                  {t('jobs.emailLabel')} {email.label}:{' '}
+                  <a
+                    href={`mailto:${email.value}`}
+                    className="font-medium text-navy hover:underline"
+                  >
+                    {email.value}
+                  </a>
+                </p>
+              ))}
             </div>
           </div>
         </div>

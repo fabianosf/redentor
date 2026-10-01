@@ -8,7 +8,6 @@ import type {
   JobOpening,
   NewsItem,
   TimelineEvent,
-  VideoItem,
   ContactAddress,
 } from '@/types'
 import type { TranslationKey } from '@/i18n'
@@ -22,18 +21,74 @@ export const MEDIA_BASE = asset('assets')
 export const IMG_BASE = asset('assets/img')
 
 export const FALLBACK_IMAGE = asset('assets/redentor-placeholder.svg')
-export const LOGO_IMAGE = `${IMG_BASE}/logo200.png`
+export const LOGO_IMAGE = `${IMG_BASE}/grupo_redentor.png`
 
-export const LINES_URL = 'https://moovitapp.com/rio_de_janeiro-322/lines/pt-br'
+export const FOUNDING_YEAR = 1950
+export const GROUP_YEARS = new Date().getFullYear() - FOUNDING_YEAR
+
+export const LINES_URL =
+  'https://moovitapp.com/index/pt-br/transporte_p%C3%BAblico-lines-Rio_de_Janeiro-322-857285'
+export const BRT_RIO_URL = 'https://www.brtrio.com/'
 export const ETHICS_CHANNEL_URL = 'https://contatoseguro.com.br/pt/gruporedentor/'
+export const CODE_OF_ETHICS_URL = 'https://gruporedentor.com.br/doc/CodigoDeEtica.pdf'
+export const EQUAL_PAY_URL = 'https://gruporedentor.com.br/doc/igualdade_salarial.pdf'
+export const PRIVACY_URL = 'https://gruporedentor.com.br/doc/Politica_De_Privacidade.pdf'
+
+export const dpoInfo = {
+  company: 'Assessoria Técnica Tailor Eireli',
+  cnpj: '00.976.398/0004-49',
+  addressLines: [
+    'Av. Dr. Hugo Beolchi, 445, Conj. 61',
+    'Vila Guarani - São Paulo/SP',
+    'CEP 04310-030',
+  ],
+  email: 'dpo@tailor.com.br',
+}
 
 export const navItems: (Omit<NavItem, 'label'> & { labelKey: TranslationKey })[] = [
   { labelKey: 'nav.home', href: '/' },
   { labelKey: 'nav.history', href: '/historia' },
   { labelKey: 'nav.companies', href: '/#empresas' },
-  { labelKey: 'nav.work', href: '/trabalhe-aqui' },
   { labelKey: 'nav.lines', href: LINES_URL, external: true },
+  {
+    labelKey: 'nav.reportChannel',
+    href: ETHICS_CHANNEL_URL,
+    external: true,
+  },
   { labelKey: 'nav.contact', href: '/fale-conosco' },
+]
+
+export const quickAccessItems: {
+  id: string
+  titleKey: TranslationKey
+  descKey: TranslationKey
+  href: string
+  external?: boolean
+  icon: 'bus' | 'package' | 'shield'
+}[] = [
+  {
+    id: 'lines',
+    titleKey: 'quickAccess.linesTitle',
+    descKey: 'quickAccess.linesDesc',
+    href: LINES_URL,
+    external: true,
+    icon: 'bus',
+  },
+  {
+    id: 'lost',
+    titleKey: 'quickAccess.lostTitle',
+    descKey: 'quickAccess.lostDesc',
+    href: '/achados-e-perdidos',
+    icon: 'package',
+  },
+  {
+    id: 'report',
+    titleKey: 'quickAccess.reportTitle',
+    descKey: 'quickAccess.reportDesc',
+    href: ETHICS_CHANNEL_URL,
+    external: true,
+    icon: 'shield',
+  },
 ]
 
 export const companies: (Company & { descriptionKey: TranslationKey })[] = [
@@ -94,8 +149,11 @@ export const heroContent = {
   secondaryCtaHref: LINES_URL,
 }
 
-export const stats: (Omit<StatItem, 'label'> & { labelKey: TranslationKey })[] = [
-  { id: 'years', value: '75', labelKey: 'stats.years', icon: 'calendar' },
+export const stats: (Omit<StatItem, 'label' | 'value'> & {
+  value: string
+  labelKey: TranslationKey
+})[] = [
+  { id: 'years', value: String(GROUP_YEARS), labelKey: 'stats.years', icon: 'calendar' },
   { id: 'companies', value: '3', labelKey: 'stats.companies', icon: 'building' },
   { id: 'people', value: '3.500', labelKey: 'stats.employees', icon: 'users' },
   { id: 'fleet', value: 'Euro 6', labelKey: 'stats.fleet', icon: 'bus' },
@@ -104,24 +162,34 @@ export const stats: (Omit<StatItem, 'label'> & { labelKey: TranslationKey })[] =
 export const pillars: (Omit<Pillar, 'title' | 'description'> & {
   titleKey: TranslationKey
   descriptionKey: TranslationKey
+  href: string
+  imageUrl?: string
+  altKey?: TranslationKey
 })[] = [
   {
     id: 'safety',
     titleKey: 'pillars.safetyTitle',
     descriptionKey: 'pillars.safetyDesc',
     icon: 'shield',
+    href: '/fique-por-dentro#seguranca',
+    imageUrl: `${IMG_BASE}/pontos-cegos.jpg`,
+    altKey: 'news.pontosAlt',
   },
   {
     id: 'training',
     titleKey: 'pillars.trainingTitle',
     descriptionKey: 'pillars.trainingDesc',
     icon: 'graduation',
+    href: '/fique-por-dentro#capacitacao',
   },
   {
     id: 'social',
     titleKey: 'pillars.socialTitle',
     descriptionKey: 'pillars.socialDesc',
     icon: 'heart',
+    href: '/fique-por-dentro#responsabilidade-social',
+    imageUrl: `${IMG_BASE}/setembro-amarelo-card.jpg`,
+    altKey: 'news.campanhaAlt',
   },
 ]
 
@@ -138,20 +206,50 @@ export const jobsInfo = {
     'Rua Anália Franco nº 150 – Vila Valqueire',
   ],
   email: 'rh@gruporedentor.com.br',
+  emails: [
+    { label: 'Viação Redentor', value: 'rh@gruporedentor.com.br' },
+    { label: 'Transportes Barra', value: 'rh@transportesbarra.com.br' },
+  ],
+  schedule: [
+    { dayKey: 'work.dayMon' as TranslationKey, hoursKey: 'work.hoursWeekday' as TranslationKey },
+    { dayKey: 'work.dayTue' as TranslationKey, hoursKey: 'work.hoursWeekday' as TranslationKey },
+    { dayKey: 'work.dayWed' as TranslationKey, hoursKey: 'work.hoursWeekday' as TranslationKey },
+    { dayKey: 'work.dayThu' as TranslationKey, hoursKey: 'work.hoursWeekday' as TranslationKey },
+    { dayKey: 'work.dayFri' as TranslationKey, hoursKey: 'work.hoursFriday' as TranslationKey },
+    { dayKey: 'work.daySat' as TranslationKey, hoursKey: 'work.hoursClosed' as TranslationKey },
+    { dayKey: 'work.daySun' as TranslationKey, hoursKey: 'work.hoursClosed' as TranslationKey },
+  ],
 }
 
+export const trainingItems: TranslationKey[] = [
+  'work.training1',
+  'work.training2',
+  'work.training3',
+  'work.training4',
+  'work.training5',
+  'work.training6',
+  'work.training7',
+  'work.training8',
+  'work.training9',
+  'work.training10',
+]
+
+/** Novidades: campanhas e comunicados recentes (atualização mensal). */
 export const newsItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
   titleKey: TranslationKey
   summaryKey: TranslationKey
   altKey: TranslationKey
+  /** cover preenche o card; contain evita corte em artes paisagem (ex.: vagas). */
+  imageFit?: 'cover' | 'contain'
 })[] = [
   {
     id: 'vagas',
     titleKey: 'news.vagasTitle',
     summaryKey: 'news.vagasSummary',
     altKey: 'news.vagasAlt',
-    imageUrl: `${IMG_BASE}/oferta-vagas.jpeg`,
+    imageUrl: `${IMG_BASE}/oferta-vagas-card.jpeg`,
     href: '/trabalhe-aqui',
+    imageFit: 'contain',
   },
   {
     id: 'aniversario',
@@ -160,38 +258,64 @@ export const newsItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
     altKey: 'news.aniversarioAlt',
     imageUrl: `${IMG_BASE}/aniversario.jpeg`,
     href: '/fique-por-dentro',
+    imageFit: 'contain',
   },
   {
     id: 'campanha',
     titleKey: 'news.campanhaTitle',
     summaryKey: 'news.campanhaSummary',
     altKey: 'news.campanhaAlt',
-    imageUrl: `${IMG_BASE}/hepatites.jpeg`,
-    href: '/fique-por-dentro',
+    imageUrl: `${IMG_BASE}/setembro-amarelo-card.jpg`,
+    href: '/fique-por-dentro#responsabilidade-social',
+    imageFit: 'contain',
   },
 ]
 
-export const newsExtra: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
-  title?: string
-  titleKey?: TranslationKey
+/** Itens extras de Novidades (pagina Fique por Dentro). */
+export const newsExtraItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
+  titleKey: TranslationKey
+  summaryKey: TranslationKey
+  altKey: TranslationKey
+  imageFit?: 'cover' | 'contain'
+})[] = [
+  {
+    id: 'jae',
+    titleKey: 'news.jaeTitle',
+    summaryKey: 'news.jaeSummary',
+    altKey: 'news.jaeAlt',
+    imageUrl: `${IMG_BASE}/jae.png`,
+    href: '/fique-por-dentro#novidades',
+    imageFit: 'contain',
+  },
+]
+
+export const socialItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
+  titleKey: TranslationKey
   summaryKey: TranslationKey
   altKey: TranslationKey
 })[] = [
   {
-    id: 'jae',
-    title: 'Jaé',
-    summaryKey: 'news.jaeSummary',
-    altKey: 'news.jaeAlt',
-    imageUrl: `${IMG_BASE}/jae.png`,
-    href: '/fique-por-dentro',
+    id: 'setembro-amarelo',
+    titleKey: 'topics.socialItemTitle',
+    summaryKey: 'topics.socialItemSummary',
+    altKey: 'news.campanhaAlt',
+    imageUrl: `${IMG_BASE}/setembro-amarelo-card.jpg`,
+    href: '/fique-por-dentro#responsabilidade-social',
   },
+]
+
+export const safetyItems: (Omit<NewsItem, 'title' | 'summary' | 'imageAlt'> & {
+  titleKey: TranslationKey
+  summaryKey: TranslationKey
+  altKey: TranslationKey
+})[] = [
   {
     id: 'pontos-cegos',
     titleKey: 'news.pontosTitle',
     summaryKey: 'news.pontosSummary',
     altKey: 'news.pontosAlt',
     imageUrl: `${IMG_BASE}/pontos-cegos.jpg`,
-    href: '/fique-por-dentro',
+    href: '/fique-por-dentro#seguranca',
   },
 ]
 
@@ -300,29 +424,24 @@ export const footerSections: {
       { label: 'Viação Redentor', href: '/viacao-redentor' },
       { label: 'Transportes Futuro', href: '/transportes-futuro' },
       { label: 'Transportes Barra', href: '/transportes-barra' },
-      {
-        labelKey: 'footer.codeOfEthics',
-        href: 'https://gruporedentor.com.br/doc/CodigoDeEtica.pdf',
-        external: true,
-      },
-      {
-        labelKey: 'footer.equalPay',
-        href: 'https://gruporedentor.com.br/doc/igualdade_salarial.pdf',
-        external: true,
-      },
+    ],
+  },
+  {
+    titleKey: 'footer.compliance',
+    links: [
+      { labelKey: 'footer.codeOfEthics', href: CODE_OF_ETHICS_URL, external: true },
+      { labelKey: 'footer.privacy', href: PRIVACY_URL, external: true },
+      { labelKey: 'footer.equalPay', href: EQUAL_PAY_URL, external: true },
+      { labelKey: 'footer.reportChannel', href: ETHICS_CHANNEL_URL, external: true },
     ],
   },
   {
     titleKey: 'footer.usefulLinks',
     links: [
+      { labelKey: 'footer.linesLink', href: LINES_URL, external: true },
+      { label: 'BRT Rio', href: BRT_RIO_URL, external: true },
       { label: 'Rio Ônibus', href: 'http://www.rioonibus.com/', external: true },
-      { label: 'Moovit', href: 'https://moovitapp.com/rio_de_janeiro-322/poi/pt-br', external: true },
       { label: 'Semove', href: 'https://semove.org.br/', external: true },
-      {
-        labelKey: 'footer.privacy',
-        href: 'https://gruporedentor.com.br/doc/Politica_De_Privacidade.pdf',
-        external: true,
-      },
     ],
   },
   {
@@ -331,7 +450,7 @@ export const footerSections: {
       { labelKey: 'footer.contactUs', href: '/fale-conosco' },
       { labelKey: 'footer.workWithUs', href: '/trabalhe-aqui' },
       { labelKey: 'footer.lostFound', href: '/achados-e-perdidos' },
-      { labelKey: 'footer.reports', href: ETHICS_CHANNEL_URL, external: true },
+      { labelKey: 'footer.reportChannel', href: ETHICS_CHANNEL_URL, external: true },
     ],
   },
 ]
@@ -344,5 +463,4 @@ export const jobRoleKeys: TranslationKey[] = [
   'jobs.other',
 ]
 
-// Keep type imports used
-export type { FooterSection, VideoItem }
+export type { FooterSection }
