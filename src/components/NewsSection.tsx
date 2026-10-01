@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { FALLBACK_IMAGE, newsItems } from '@/data'
+import { FALLBACK_IMAGE, GROUP_YEARS, newsItems } from '@/data'
 import { useLanguage } from '@/i18n'
 
 export function NewsSection() {
@@ -28,45 +28,48 @@ export function NewsSection() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {newsItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.href}
-              className="card-surface group flex flex-col overflow-hidden"
-            >
-              <div className="aspect-[16/10] overflow-hidden bg-offwhite">
-                <img
-                  src={item.imageUrl}
-                  alt={t(item.altKey)}
-                  className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.03]"
-                  loading="lazy"
-                  decoding="async"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  onError={(event) => {
-                    event.currentTarget.src = FALLBACK_IMAGE
-                  }}
-                />
-              </div>
-              <div className="flex flex-1 flex-col px-4 py-4 sm:px-5 sm:py-5">
-                <span className="inline-flex w-fit rounded-full bg-gold px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-navy-dark">
-                  {t(item.categoryKey)}
-                </span>
-                <h3 className="mt-3 text-base font-bold text-navy sm:text-lg">
-                  {t(item.titleKey)}
-                </h3>
-                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-ink-muted">
-                  {t(item.summaryKey)}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
-                  {t('topics.seeMore')}
-                  <ArrowRight
-                    className="h-4 w-4 transition group-hover:translate-x-0.5"
-                    aria-hidden="true"
+          {newsItems.map((item) => {
+            const title =
+              item.titleKey === 'news.aniversarioTitle'
+                ? t(item.titleKey, { years: GROUP_YEARS })
+                : t(item.titleKey)
+
+            return (
+              <Link
+                key={item.id}
+                to={item.href}
+                className="card-surface group flex flex-col overflow-hidden"
+              >
+                <div className="aspect-[4/5] overflow-hidden bg-white">
+                  <img
+                    src={item.imageUrl}
+                    alt={t(item.altKey)}
+                    className="h-full w-full object-contain object-center"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    onError={(event) => {
+                      event.currentTarget.src = FALLBACK_IMAGE
+                    }}
                   />
-                </span>
-              </div>
-            </Link>
-          ))}
+                </div>
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <span className="inline-flex w-fit rounded-md bg-gold px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-navy-dark">
+                    {t(item.categoryKey)}
+                  </span>
+                  <h3 className="mt-3 text-lg font-bold text-navy sm:text-xl">{title}</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{t(item.summaryKey)}</p>
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-navy">
+                    {t('topics.seeMore')}
+                    <ArrowRight
+                      className="h-4 w-4 transition group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>
